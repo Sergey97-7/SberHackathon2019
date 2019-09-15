@@ -27,37 +27,37 @@ class NetworkCard extends Component {
             <Label color="black" horizontal>
               Имя сети
             </Label>
-            {name}
+            сеть1
           </List.Item>
           <List.Item>
             <Label color="black" horizontal>
               IP4
             </Label>
-            {ip4}
+            10.68.198.94
           </List.Item>
           <List.Item>
             <Label color="black" horizontal>
               IP6
             </Label>
-            {ip6}
+            fe80::250:56ff:fe85:5dcd
           </List.Item>
           <List.Item>
             <Label color="black" horizontal>
               BSSID:
             </Label>
-            {bssid}
+            BSSID1
           </List.Item>
           <List.Item>
             <Label color="black" horizontal>
               Channel
             </Label>
-            {channel}
+            12
           </List.Item>
           <List.Item>
             <Label color="black" horizontal>
               Обновлено
             </Label>
-            {moment(update).format("MM Do YYYY, hh:mm:ss")}
+            {moment(new Date()).format("MM Do YYYY, hh:mm:ss")}
           </List.Item>
         </List>
       </Segment>

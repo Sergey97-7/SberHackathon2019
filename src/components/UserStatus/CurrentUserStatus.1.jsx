@@ -115,64 +115,6 @@ class CurrentUserStatus extends Component {
       { key: "sdfsdf", value: "bsdfj2", text: "4Befsgsgnin" },
       { key: "bjsdfzxcv3vs3", value: "bsdfj2", text: "4Befsgsgnin" }
     ];
-    const cards = [
-      {
-        name: " сеть1",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть2",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть3",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть4",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть5",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть6",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть7",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      }
-    ];
     return (
       <Grid
         className="current-user-status"
@@ -228,22 +170,20 @@ class CurrentUserStatus extends Component {
         </Grid.Row> */}
 
         <Grid.Row>
-          <Grid.Column width={7}>
+          <Grid.Column width={6}>
             <Header as="h4">История запросов</Header>
           </Grid.Column>
-          <Grid.Column width={8}>
+          <Grid.Column width={9}>
             <Header as="h4">Статус устройства</Header>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row stretched>
-          <Grid.Column width={7}>
+          <Grid.Column width={6}>
             <Segment className="tts">
-              <div>
-                <Select placeholder="Время" options={countryOptions} />
-              </div>
+              <Select placeholder="Время" options={countryOptions} />
             </Segment>
           </Grid.Column>
-          <Grid.Column width={8}>
+          <Grid.Column width={9}>
             <Segment>
               <List className="text-left" divided selection>
                 <List.Item>
@@ -275,79 +215,44 @@ class CurrentUserStatus extends Component {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row stretched>
-          {/* <Grid.Column width={6}></Grid.Column>
-          <Grid.Column width={9}> */}
-          <Grid.Column width={16}>
-            <Grid className="grid-test">
-              {/* {cards.map((card, i, arr) => {
-                return (
-                  <Grid.Row>
-                    <Grid.Column width={8}>
-                      <NetWorkCard
-                        name={card.name}
-                        ip4={card.ip4}
-                        ip6={card.ip6}
-                        bssid={card.bssid}
-                        channel={card.channel}
-                        update={card.update}
-                      />
-                    </Grid.Column>
-                    <Grid.Column width={8}>
-                      {arr[i + 1] && (
-                        <NetWorkCard
-                          name={arr[i + 1].name}
-                          ip4={arr[i + 1].ip4}
-                          ip6={arr[i + 1].ip6}
-                          bssid={arr[i + 1].bssid}
-                          channel={arr[i + 1].channel}
-                          update={arr[i + 1].update}
-                        />
-                      )}
-                    </Grid.Column>
-                  </Grid.Row>
-                );
-              })} */}
-
+           <Grid.Column width={6}></Grid.Column> 
+          <Grid.Column width={9}> 
+          {/* <Grid.Column width={15}> */}
+            {/* <Grid className="grid-test">
               <Grid.Row>
-                {cards.map(card => {
-                  return (
-                    <Grid.Column width={8}>
-                      <NetWorkCard
-                        name={card.name}
-                        ip4={card.ip4}
-                        ip6={card.ip6}
-                        bssid={card.bssid}
-                        channel={card.channel}
-                        update={card.update}
-                      />
-                    </Grid.Column>
-                  );
-                })}
-
-                {/* <Grid.Column width={8}>
-                  <NetWorkCard />
-                  <NetWorkCard />
-                  <NetWorkCard />
-                  <NetWorkCard />
+                <Grid.Column width={8}>
                   <NetWorkCard />
                 </Grid.Column>
                 <Grid.Column width={8}>
                   <NetWorkCard />
-                  <NetWorkCard />
-                  <NetWorkCard />
-                  <NetWorkCard />
-                  <NetWorkCard />
-                </Grid.Column> */}
+                </Grid.Column>
               </Grid.Row>
-            </Grid>
+              <Grid.Row>
+                <Grid.Column width={8}>
+                  <NetWorkCard />
+                </Grid.Column>
+                <Grid.Column width={8}>
+                  <NetWorkCard />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column width={8}>
+                  <NetWorkCard />
+                </Grid.Column>
+                <Grid.Column width={8}>
+                  <NetWorkCard />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid> */}
 
-            {/* <div className="current-user-networks">
+
+            <div className="current-user-networks">
               <NetWorkCard />
               <NetWorkCard />
               <NetWorkCard />
               <NetWorkCard />
               <NetWorkCard />
-            </div> */}
+            </div>
           </Grid.Column>
         </Grid.Row>
       </Grid>
