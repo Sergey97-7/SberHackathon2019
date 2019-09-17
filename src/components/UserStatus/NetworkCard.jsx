@@ -24,37 +24,37 @@ class NetworkCard extends Component {
       <Segment>
         <List className="text-left" divided selection>
           <List.Item>
-            <Label color="black" horizontal>
+            <Label color="green" horizontal>
               Имя сети
             </Label>
             {name}
           </List.Item>
           <List.Item>
-            <Label color="black" horizontal>
+            <Label color="green" horizontal>
               IP4
             </Label>
             {ip4}
           </List.Item>
           <List.Item>
-            <Label color="black" horizontal>
+            <Label color="green" horizontal>
               IP6
             </Label>
             {ip6}
           </List.Item>
           <List.Item>
-            <Label color="black" horizontal>
+            <Label color="green" horizontal>
               BSSID:
             </Label>
             {bssid}
           </List.Item>
           <List.Item>
-            <Label color="black" horizontal>
+            <Label color="green" horizontal>
               Channel
             </Label>
             {channel}
           </List.Item>
           <List.Item>
-            <Label color="black" horizontal>
+            <Label color="green" horizontal>
               Обновлено
             </Label>
             {moment(update).format("MM Do YYYY, hh:mm:ss")}

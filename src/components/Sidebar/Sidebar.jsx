@@ -5,42 +5,65 @@ import { Menu } from "semantic-ui-react";
 import { changePage } from "../../actions/app";
 import { Link } from "react-router-dom";
 class Sidebar extends Component {
-  menuItemHandler = (e, { name }) => {
-    console.log("name: ", name);
-    // this.props.changePage(e.target.name);
-  };
+  state = { activeItem: "administration" };
+  menuItemHandler = (e, name) => {
+    console.log("name::::1", e)
+    console.log("name::::2", name)
+    changePage(e, name)
+    // this.setState({ activeItem: name })
+  } ;
   render() {
-    // const { app } = this.props;
-    const app = "administration";
+    const { activeItem } = this.state;
+    const {currentPage, changePage} = this.props;
     return (
       <div className="sidebar">
         <Menu pointing vertical>
-          <Menu.Item
-            name="Администрирование"
+          {/* <Menu.Item
+          color="blue"
+            name="administration"
             as={Link}
             link={true}
-            active={app === "administration"}
+            active={currentPage === "administration"}
             to={"/administration"}
-          />
+            onClick={this.menuItemHandler}
+          >
+            Администрирование
+          </Menu.Item>
           <Menu.Item
-            name="Статусы устройств"
+          color="blue"
+            name="status"
             as={Link}
             link={true}
-            active={app === "status"}
+            active={currentPage === "status"}
             to={"/status"}
-          />
-          {/* <Link
-            className={`${app === "administration" ? "active" : ""} link item`}
+            // onClick={changePage}
+            onClick={this.menuItemHandler}
+          >
+            Статусы устройств
+          </Menu.Item> */}
+          <Menu.Item
+          color="blue"
+            name="administration"
+            as={Link}
+            link={true}
+            active={currentPage === "administration"}
             to={"/administration"}
+            onClick={changePage}
           >
-            Administration
-          </Link>
-          <Link
-            className={`${app === "status" ? "active" : ""} link item`}
+            Администрирование
+          </Menu.Item>
+          <Menu.Item
+          color="blue"
+            name="status"
+            as={Link}
+            link={true}
+            active={currentPage === "status"}
             to={"/status"}
+            // onClick={changePage}
+            onClick={changePage}
           >
-            Device statuses
-          </Link> */}
+            Статусы устройств
+          </Menu.Item>
         </Menu>
       </div>
     );
@@ -49,16 +72,12 @@ class Sidebar extends Component {
 const mapStateToProps = state => {
   console.log("state", state);
   return {
-    app: state.app
+    currentPage: state.app.currentPage
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    changePage: name => dispatch(changePage(name))
-    // dispatching plain actions
-    // increment: () => dispatch({ type: "INCREMENT" }),
-    // decrement: () => dispatch({ type: "DECREMENT" }),
-    // reset: () => dispatch({ type: "RESET" })
+    changePage: (e, {name}) => dispatch(changePage(name))
   };
 };
 export default connect(

@@ -1,7 +1,13 @@
-import { CHANGE_PAGE } from "../constants/actions";
-export function changePage(text) {
+import { CHANGE_PAGE, GET_CONFIG } from "../constants/actions";
+export function changePage(currentPage) {
   return {
     type: CHANGE_PAGE,
-    text
+    currentPage
+  };
+}
+export function getAppConfig(appConfig) {
+  return {
+    type: GET_CONFIG,
+    appConfig
   };
 }

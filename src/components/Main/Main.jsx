@@ -19,7 +19,7 @@ import Sidebar from "../Sidebar";
 import AdministrationEdit from "../Administration/AdminitrationEdit";
 import AdministrationCreate from "../Administration/AdministrationCreate";
 import UserStatus from "../UserStatus/UserStatus";
-import CurrentUserStatus from "../UserStatus/CurrentUserStatus";
+import CurrentUserStatus from "../UserStatus/CurrentUserStatus.2";
 class Main extends Component {
   render() {
     console.log("pro", this.props);

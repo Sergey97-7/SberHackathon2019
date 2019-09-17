@@ -24,7 +24,7 @@ class Administration extends Component {
     return (
       <div className="administration">
         {/* <div> */}
-          <Header className="text-left" size="medium">Поиск</Header>
+          <Header className="text-left" size="medium">Пользователи</Header>
           <div className="test" >
             <Input className="input-search" action="Поиск"  placeholder="Поиск..." />
             <Button className="button-add-user"  primary>Добавить</Button>

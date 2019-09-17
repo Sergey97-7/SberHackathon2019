@@ -1,1 +1,1 @@
-export const appState = { currentPage: "administration" };
+export const appState = { currentPage: "administration", appConfig: null };
