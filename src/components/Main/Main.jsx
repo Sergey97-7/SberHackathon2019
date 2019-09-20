@@ -20,7 +20,13 @@ import AdministrationEdit from "../Administration/AdminitrationEdit";
 import AdministrationCreate from "../Administration/AdministrationCreate";
 import UserStatus from "../UserStatus/UserStatus";
 import CurrentUserStatus from "../UserStatus/CurrentUserStatus.2";
+import { userListFetch } from "../../actions/userActions";
 class Main extends Component {
+  componentDidMount() {
+    this.props.userListFetch("/rest/users");
+    // const fetchData = async url => await (await fetch(url)).json();
+    // setTimeout(()=>console.log("FETCH_DATA", fetchData), 1000)
+  }
   render() {
     console.log("pro", this.props);
     return (
@@ -40,14 +46,14 @@ class Main extends Component {
         <Container className="main">
           <Segment>
             <Grid columns={2} stackable textAlign="center">
-              <Grid.Row>
+              <Grid.Row className="main-segment">
                 <Grid.Column width={4}>
                   <Segment className="side-menu-segment">
                     <Sidebar />
                   </Segment>
                 </Grid.Column>
                 <Grid.Column width={11}>
-                  <Segment>
+                  <Segment className="main-content-segment">
                     <Route
                       exact
                       path="/administration"
@@ -85,4 +91,18 @@ class Main extends Component {
     );
   }
 }
-export default Main;
+const mapStateToProps = state => {
+  console.log("state", state);
+  return {
+    admin: state.administration
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    userListFetch: url => dispatch(userListFetch(url))
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Main);

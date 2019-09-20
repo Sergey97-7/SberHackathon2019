@@ -1,5 +1,9 @@
 .main {
-   .side-menu-segment {
-       height: 100%;
-   }
+  .main-segment {
+    min-height: 400px;
+  }
+  .side-menu-segment,
+  .main-content-segment {
+    height: 100%;
+  }
 }

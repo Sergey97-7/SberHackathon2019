@@ -17,18 +17,29 @@ import {
 } from "semantic-ui-react";
 import "./UserStatus.scss";
 class UserStatus extends Component {
-    render() {
-      console.log("pro", this.props);
-      return (
-        <div className="status">
-          {/* <div> */}
-          <Header className="text-left" size="medium">Поиск</Header>
-          <Form>
-              <Input label="Заявка" placeholder="Поиск..." fluid action="Поиск"/>
-              <Input label="Email: " placeholder="Поиск..." fluid action="Поиск"/>
-              </Form>
-        </div>
-      );
-    }
+  render() {
+    console.log("pro", this.props);
+    return (
+      <div className="status">
+        {/* <div> */}
+        <Header className="text-left" size="medium">
+          Поиск
+        </Header>
+        <Form>
+          <Form.Field>
+            <Input label="Номер Заявки: " placeholder="Поиск..." fluid action="Поиск" />
+          </Form.Field>
+          <Form.Field>
+            <Input
+              label="Email: "
+              placeholder="Поиск..."
+              fluid
+              action="Поиск"
+            />
+          </Form.Field>
+        </Form>
+      </div>
+    );
   }
-  export default UserStatus;
+}
+export default UserStatus;

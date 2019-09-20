@@ -7,6 +7,7 @@ export function appReducer(state = appState, action) {
         currentPage: action.currentPage
       });
     case GET_CONFIG:
+      console.log("REDUCER,", action)
       return Object.assign({}, state, {
         appConfig: action.appConfig
       });

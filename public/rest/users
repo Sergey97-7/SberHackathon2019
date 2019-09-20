@@ -1,0 +1,44 @@
+{
+  "value": [
+    {
+      "id": 19,
+      "name": "qwerty1",
+      "uuid": "1234567890",
+      "hash": "werwerqtweryerutyurutyutyutr",
+      "email": "qwerty1@mail.ru",
+      "role": 1
+    },
+    {
+      "id": 20,
+      "name": "qwerty122",
+      "uuid": "12345678902",
+      "hash": "werwerqtweryerutyurutyutyutr",
+      "email": "qwerty12@mail.ru",
+      "role": 1
+    },
+    {
+      "id": 193,
+      "name": "qwerty13",
+      "uuid": "12345678903",
+      "hash": "werwerqtweryerutyurutyutyutr",
+      "email": "qwerty13@mail.ru",
+      "role": 1
+    },
+    {
+      "id": 194,
+      "name": "qwerty14",
+      "uuid": "12345678904",
+      "hash": "werwerqtweryerutyurutyutyutr",
+      "email": "qwerty14@mail.ru",
+      "role": 1
+    },
+    {
+      "id": 195,
+      "name": "qwerty145",
+      "uuid": "123456789045",
+      "hash": "werwerqtweryerutyurutyutyutr",
+      "email": "qwerty145@mail.ru",
+      "role": 0
+    }
+  ]
+}
