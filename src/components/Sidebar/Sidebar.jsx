@@ -7,14 +7,14 @@ import { Link } from "react-router-dom";
 class Sidebar extends Component {
   state = { activeItem: "administration" };
   menuItemHandler = (e, name) => {
-    console.log("name::::1", e)
-    console.log("name::::2", name)
-    changePage(e, name)
+    console.log("name::::1", e);
+    console.log("name::::2", name);
+    changePage(e, name);
     // this.setState({ activeItem: name })
-  } ;
+  };
   render() {
     const { activeItem } = this.state;
-    const {currentPage, changePage} = this.props;
+    const { currentPage, changePage } = this.props;
     return (
       <div className="sidebar">
         <Menu pointing vertical>
@@ -42,7 +42,7 @@ class Sidebar extends Component {
             Статусы устройств
           </Menu.Item> */}
           <Menu.Item
-          color="blue"
+            color="blue"
             name="administration"
             as={Link}
             link={true}
@@ -53,7 +53,7 @@ class Sidebar extends Component {
             Администрирование
           </Menu.Item>
           <Menu.Item
-          color="blue"
+            color="blue"
             name="status"
             as={Link}
             link={true}
@@ -77,7 +77,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    changePage: (e, {name}) => dispatch(changePage(name))
+    changePage: (e, { name }) => dispatch(changePage(name))
   };
 };
 export default connect(

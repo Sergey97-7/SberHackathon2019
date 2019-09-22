@@ -1,3 +1,7 @@
 {
-  "mainUrl": "https://localhost:8080"
+  "mainUrl": "https://localhost:8080",
+  "roles": {
+    "1": "Администратор",
+    "0": "Пользователь"
+  }
 }

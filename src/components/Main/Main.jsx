@@ -43,6 +43,7 @@ class Main extends Component {
         </Grid>
       </Container> */
       <>
+      {this.props.config !== null &&
         <Container className="main">
           <Segment>
             <Grid columns={2} stackable textAlign="center">
@@ -61,7 +62,7 @@ class Main extends Component {
                     />
                     <Route
                       exact
-                      path="/administration/edit"
+                      path="/administration/edit/user/:user"
                       component={AdministrationEdit}
                     />
                     <Route
@@ -87,6 +88,7 @@ class Main extends Component {
             {/* </Segment> */}
           </Segment>
         </Container>
+        }
       </>
     );
   }
@@ -94,7 +96,8 @@ class Main extends Component {
 const mapStateToProps = state => {
   console.log("state", state);
   return {
-    admin: state.administration
+    admin: state.administration,
+    config: state.app.appConfig
   };
 };
 const mapDispatchToProps = dispatch => {

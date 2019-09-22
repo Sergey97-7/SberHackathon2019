@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import { connect } from "react-redux";
 // import { withRouter } from 'react-router-dom'
 import "./Administration.scss";
@@ -19,10 +19,24 @@ import {
 } from "semantic-ui-react";
 import AdministrationEdit from "./AdminitrationEdit";
 import { changeAdminSearchInput } from "../../actions/administrationAction";
-import { Link } from "react-router-dom";
 class Administration extends Component {
+  redirect = e => {
+    // console.log("PROOOOPRRRSSROUTER", this.props)
+    console.log("PROOOOPRRRSSROUTERe", e.currentTarget.getAttribute("email"));
+    console.log("PROOOOPRRRSSROUTERf", e.currentTarget);
+    // console.log("PROOOOPRRRSSROUTER", user)
+    // window.location.assign("/administration/edit");
+    this.props.history.push(
+      `/administration/edit/user/${e.currentTarget.getAttribute("email")}`
+    );
+  };
+
   render() {
-    const { admin, changeAdminSearchInput, user } = this.props;
+    const { admin, changeAdminSearchInput, user, config } = this.props;
+    // const roleAlias = {
+    //   0: "user",
+    //   1: "administator"
+    // };
     console.log("prOOOOO", this.props.user.userList);
     return (
       <div className="administration">
@@ -49,7 +63,7 @@ class Administration extends Component {
         ) : (
           <Table celled>
             <Table.Header>
-              <Table.Row as={Link}>
+              <Table.Row>
                 <Table.HeaderCell>Имя</Table.HeaderCell>
                 <Table.HeaderCell>Email</Table.HeaderCell>
                 <Table.HeaderCell>Роль</Table.HeaderCell>
@@ -59,15 +73,17 @@ class Administration extends Component {
             <Table.Body>
               {/* {user.error.hasErrored && !user.isLoading && "TEST"} */}
 
-              {user.userList.length !== 0 ? user.userList.map(user => {
-                return (
-                  <Table.Row key={user.id} >
-                    <Table.Cell>{user.name}</Table.Cell>
-                    <Table.Cell>{user.email}</Table.Cell>
-                    <Table.Cell>{user.role}</Table.Cell>
-                  </Table.Row>
-                );
-              }) : null}
+              {user.userList.length !== 0
+                ? user.userList.map(user => {
+                    return (
+                      <Table.Row key={user.id} email={user.email} onClick={this.redirect}>
+                        <Table.Cell>{user.name}</Table.Cell>
+                        <Table.Cell>{user.email}</Table.Cell>
+                        <Table.Cell>{config.roles[user.role]}</Table.Cell>
+                      </Table.Row>
+                    );
+                  })
+                : null}
               {/* <Table.Row>
               <Table.Cell>Cell</Table.Cell>
               <Table.Cell>Cell</Table.Cell>
@@ -113,7 +129,8 @@ const mapStateToProps = state => {
   console.log("state", state);
   return {
     admin: state.administration,
-    user: state.user
+    user: state.user,
+    config: state.app.appConfig
   };
 };
 const mapDispatchToProps = dispatch => {

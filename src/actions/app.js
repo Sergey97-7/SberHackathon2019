@@ -12,3 +12,33 @@ export function getAppConfig(appConfig) {
     appConfig
   };
 }
+
+//TODO handle errors and load config
+// export function userListHasErrored(bool, msg) {
+//   return {
+//     type: USER_LIST_HAS_ERRORED,
+//     hasErrored: bool,
+//     msg
+//   };
+// }
+// export function userListisLoading(bool) {
+//   return {
+//     type: USER_LIST_IS_LOADING,
+//     isLoading: bool
+//   };
+// }
+// export function userListSuccessFetch(userList) {
+//   return {
+//     type: USER_LIST_SUCCESS_FETCH,
+//     userList
+//   };
+// }
+// export function userListFetch(url) {
+//  return dispatch => fetchDataRedux(
+//     url,
+//     dispatch,
+//     userListisLoading,
+//     userListHasErrored,
+//     userListSuccessFetch
+//   );
+// }
