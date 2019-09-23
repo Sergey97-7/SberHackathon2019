@@ -27,19 +27,19 @@ class AdministrationEdit extends Component {
     let body = { hash: null, role: null, name: null, email: null, uuid: "" };
     if (
       (pwd.trim() !== "" && pwd.trim() === pwdConfirm.trim()) ||
-      role.trim() !== this.currentUser.role ||
+      role.trim() !== String(this.currentUser.role) ||
       name.trim() !== ""
     ) {
       if (pwd.trim() !== "" && pwd.trim() === pwdConfirm.trim()) {
         body.hash = pwd.trim();
       }
-      if (role.trim() !== this.currentUser.role) {
+      if (role.trim() !== String(this.currentUser.role)) {
         body.role = role.trim();
       }
       if (name.trim() !== "") {
         body.name = name;
       }
-      (async () => {
+      const fetchDataPut = async () => {
         const rawResponse = await fetch(`/rest/users/${this.currentUser.id}`, {
           method: "PUT",
           headers: {
@@ -49,9 +49,15 @@ class AdministrationEdit extends Component {
           body: JSON.stringify({ body })
         });
         const res = await rawResponse.json();
-        if (res.value.hasOwnProperty("id")) changeCurrentUser(res.value);
-        else console.log("adminEditResponse: ", res);
-      })();
+        if (res.value.hasOwnProperty("id")) {
+          this.props.changeCurrentUser(res.value);
+        } else {
+          console.log("adminEditResponse: ", res);
+        }
+      };
+      fetchDataPut();
+    } else {
+      console.log("Заполните хотя бы 1 поле!");
     }
   };
   // pwdConfirmhandler = e => {
@@ -122,7 +128,9 @@ class AdministrationEdit extends Component {
           label="Роль: "
           options={options}
         />
-        <Button type="submit">Сохранить</Button>
+        <Button onClick={this.changeUserParams} type="submit">
+          Сохранить
+        </Button>
       </Form>
     );
   }

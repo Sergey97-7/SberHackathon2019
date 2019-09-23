@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { Button, Checkbox, Form, Header, Input } from "semantic-ui-react";
 // import { withRouter } from 'react-router-dom'
 // import "./Main.scss";
+import { createCurrentUser } from "../../actions/userActions";
+import { fetchDataPost } from "../../utils/fetch";
 class AdministrationCreate extends Component {
   state = {
     name: "",
@@ -11,6 +13,47 @@ class AdministrationCreate extends Component {
     pwd: "",
     pwdConfirm: "",
     role: "0"
+  };
+  createUser = () => {
+    const { pwd, pwdConfirm, role, name, email } = this.state;
+    let body = {};
+    if (
+      name.trim() !== "" &&
+      email.trim() !== "" &&
+      pwd.trim() !== "" &&
+      pwdConfirm.trim() !== ""
+    ) {
+      if (pwd.trim() === pwdConfirm.trim()) {
+        body = {
+          name: name.trim(),
+          hash: pwd.trim(),
+          role: role.trim(),
+          email: email.trim(),
+          uuid: ""
+        };
+        const fetchDataPost = async () => {
+          const rawResponse = await fetch("/rest/users/", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+          });
+          const res = await rawResponse.json();
+          if (res.value.hasOwnProperty("id")) {
+            await this.props.createCurrentUser(res.value);
+          } else {
+            console.log("adminEditResponse: ", res);
+          }
+        };
+        fetchDataPost();
+      } else {
+        console.log("Пароли не совпадают!");
+      }
+    } else {
+      console.log("Заполните все поля!");
+    }
   };
   inputHandler = e => {
     this.setState({ [e.target.getAttribute(["name"])]: e.target.value });
@@ -75,7 +118,9 @@ class AdministrationCreate extends Component {
           value={role}
           onChange={this.roleHandler}
         />
-        <Button type="submit">Сохранить</Button>
+        <Button onClick={this.createUser} type="submit">
+          Сохранить
+        </Button>
       </Form>
     );
   }
@@ -91,7 +136,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    // changeCurrentUser: user => dispatch(changeCurrentUser(user))
+    createCurrentUser: user => dispatch(createCurrentUser(user))
   };
 };
 export default connect(
