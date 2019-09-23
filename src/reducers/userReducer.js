@@ -1,7 +1,9 @@
 import {
   USER_LIST_SUCCESS_FETCH,
   USER_LIST_HAS_ERRORED,
-  USER_LIST_IS_LOADING
+  USER_LIST_IS_LOADING,
+  CHANGE_CURRENT_USER,
+  CREATE_CURRENT_USER
 } from "../constants/actions";
 import { userState } from "../constants/initialState";
 export function userReducer(state = userState, action) {
@@ -21,6 +23,17 @@ export function userReducer(state = userState, action) {
           msg: action.msg
         }
       });
+    case CHANGE_CURRENT_USER:
+      return Object.assign({}, state, {
+        userList: state.userList.map(user =>
+          user.id === action.user.id ? action.user : user
+        )
+      });
+    case CREATE_CURRENT_USER:
+      return Object.assign({}, state, {
+        userList: [...state.userList, action.user]
+      });
+
     default:
       return state;
   }

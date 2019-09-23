@@ -26,9 +26,13 @@ class Administration extends Component {
     console.log("PROOOOPRRRSSROUTERf", e.currentTarget);
     // console.log("PROOOOPRRRSSROUTER", user)
     // window.location.assign("/administration/edit");
-    this.props.history.push(
-      `/administration/edit/user/${e.currentTarget.getAttribute("email")}`
-    );
+    if (e.currentTarget.getAttribute("name") === "edit") {
+      this.props.history.push(
+        `/administration/edit/user/${e.currentTarget.getAttribute("email")}`
+      );
+    } else if (e.currentTarget.getAttribute("name") === "create") {
+      this.props.history.push("/administration/create");
+    }
   };
 
   render() {
@@ -52,7 +56,12 @@ class Administration extends Component {
             action="Поиск"
             placeholder="Поиск..."
           />
-          <Button className="button-add-user" primary>
+          <Button
+            className="button-add-user"
+            primary
+            name="create"
+            onClick={this.redirect}
+          >
             Добавить
           </Button>
         </div>
@@ -76,7 +85,12 @@ class Administration extends Component {
               {user.userList.length !== 0
                 ? user.userList.map(user => {
                     return (
-                      <Table.Row key={user.id} email={user.email} onClick={this.redirect}>
+                      <Table.Row
+                        key={user.id}
+                        email={user.email}
+                        name="edit"
+                        onClick={this.redirect}
+                      >
                         <Table.Cell>{user.name}</Table.Cell>
                         <Table.Cell>{user.email}</Table.Cell>
                         <Table.Cell>{config.roles[user.role]}</Table.Cell>

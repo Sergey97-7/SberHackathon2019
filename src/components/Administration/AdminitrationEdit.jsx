@@ -4,24 +4,55 @@ import { connect } from "react-redux";
 import { Button, Checkbox, Form, Header, Dropdown } from "semantic-ui-react";
 // import { withRouter } from 'react-router-dom'
 // import "./Main.scss";
+import { changeCurrentUser } from "../../actions/userActions";
 class AdministrationEdit extends Component {
+  currentUser = this.props.user.userList.find(
+    user => user.email === this.props.match.params.user
+  );
   state = {
+    name: "",
     pwd: "",
     pwdConfirm: "",
-    //TODO избавиться от пропсов в состоянии
-    // role: String(
-    //   this.props.user.userList.find(
-    //     user => user.email === this.props.match.params.user
-    //   ).role
-    // ),
-    role: ""
+    role: String(this.currentUser.role)
   };
-  pwdHandler = e => {
+  inputHandler = e => {
     console.log("ATTT", e.target.getAttribute(["name"]));
     this.setState({ [e.target.getAttribute(["name"])]: e.target.value });
   };
   roleHandler = (e, { value }) => {
     this.setState({ role: value });
+  };
+  changeUserParams = () => {
+    const { pwd, pwdConfirm, role, name } = this.state;
+    let body = { hash: null, role: null, name: null, email: null, uuid: "" };
+    if (
+      (pwd.trim() !== "" && pwd.trim() === pwdConfirm.trim()) ||
+      role.trim() !== this.currentUser.role ||
+      name.trim() !== ""
+    ) {
+      if (pwd.trim() !== "" && pwd.trim() === pwdConfirm.trim()) {
+        body.hash = pwd.trim();
+      }
+      if (role.trim() !== this.currentUser.role) {
+        body.role = role.trim();
+      }
+      if (name.trim() !== "") {
+        body.name = name;
+      }
+      (async () => {
+        const rawResponse = await fetch(`/rest/users/${this.currentUser.id}`, {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ body })
+        });
+        const res = await rawResponse.json();
+        if (res.value.hasOwnProperty("id")) changeCurrentUser(res.value);
+        else console.log("adminEditResponse: ", res);
+      })();
+    }
   };
   // pwdConfirmhandler = e => {
   //   this.setState({pwdConfirm: e.target.value})
@@ -31,7 +62,7 @@ class AdministrationEdit extends Component {
   // }
   render() {
     const { roleAlias, match, user } = this.props;
-    const { pwd, pwdConfirm, role } = this.state;
+    const { pwd, pwdConfirm, role, name } = this.state;
     console.log("this", this.props.match.params.user);
     // const options = [
     //   { key: "administrator", text: "Администратор", value: "administrator" },
@@ -55,10 +86,21 @@ class AdministrationEdit extends Component {
         <Header floated={"left"} as="h4">
           Учетная запись: {match.params.user}
         </Header>
+        <Header floated={"left"} as="h4">
+          Имя: {this.currentUser.name}
+        </Header>
+        <Form.Input
+          name="name"
+          value={name}
+          onChange={this.inputHandler}
+          className="text-left"
+          label="Имя: "
+          type="text"
+        />
         <Form.Input
           name="pwd"
           value={pwd}
-          onChange={this.pwdHandler}
+          onChange={this.inputHandler}
           className="text-left"
           label="Пароль: "
           type="password"
@@ -66,7 +108,7 @@ class AdministrationEdit extends Component {
         <Form.Input
           name="pwdConfirm"
           value={pwdConfirm}
-          onChange={this.pwdHandler}
+          onChange={this.inputHandler}
           className="text-left"
           label="Повтор пароля: "
           type="password"
@@ -74,7 +116,8 @@ class AdministrationEdit extends Component {
         <Form.Select
           onChange={this.roleHandler}
           className="text-left"
-          defaultValue={String(currentUser.role)}
+          // defaultValue={String(this.currentUser.role)}
+          value={role}
           fluid
           label="Роль: "
           options={options}
@@ -95,8 +138,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    // changeAdminSearchInput: e =>
-    // dispatch(changeAdminSearchInput(e.target.value))
+    changeCurrentUser: user => dispatch(changeCurrentUser(user))
   };
 };
 export default connect(
