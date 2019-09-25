@@ -79,67 +79,100 @@ class CurrentUserStatus extends Component {
         update: new Date()
       }
     ];
+    const { error, isLoading, user } = this.props.status;
+    // {error.hasErrored ? (<div>Ошибка: {error.msg}</div>) : isLoading ? (<div>Загрузка...</div>) :
     return (
-      <div className="current-user-status">
-        <Segment className="tts">
-          <Header block={true} as="h4">
-            История запросов
-          </Header>
-          <Select  placeholder="Время" options={countryOptions} />
-        </Segment>
-        <Segment>
-          <Header  block={true} as="h4">
-            Статус устройства
-          </Header>
-          <List className="text-left" divided selection>
-            <List.Item>
-              <Label color="green" horizontal>
-                Пользователь
-              </Label>
-              user1@sberbank.ru
-            </List.Item>
-            <List.Item>
-              <Label color="purple" horizontal>
-                MAC
-              </Label>
-              00:50:56:85:5d:cd
-            </List.Item>
-            <List.Item>
-              <Label color="red" horizontal>
-                ID устройства
-              </Label>
-              r4t48uergh48834hrgg
-            </List.Item>
-            <List.Item>
-              <Label color="yellow" horizontal>
-                Параметр
-              </Label>
-              Параметр
-            </List.Item>
-          </List>
-        </Segment>
-        <Segment>
-          <Header  block={true} as="h4">
-            Список сетей
-          </Header>
-          <div className="grid-test">
-            {cards.map(card => {
-              return (
-                <NetWorkCard
-                  key={card.name}
-                  name={card.name}
-                  ip4={card.ip4}
-                  ip6={card.ip6}
-                  bssid={card.bssid}
-                  channel={card.channel}
-                  update={card.update}
-                />
-              );
-            })}
+      <>
+        {error.hasErrored ? (
+          <div>Ошибка: {error.msg}</div>
+        ) : (isLoading || user === null)  ? (
+          <div>Загрузка...</div>
+        ) : (
+          <div className="current-user-status">
+            <Segment className="tts">
+              <Header block={true} as="h4">
+                История запросов
+              </Header>
+              <Select placeholder="Время" options={countryOptions} />
+            </Segment>
+            <Segment>
+              <Header block={true} as="h4">
+                Статус устройства
+              </Header>
+              <List className="text-left" divided selection>
+                <List.Item>
+                  <Label color="green" horizontal>
+                    Пользователь
+                  </Label>
+                  user1@sberbank.ru
+                </List.Item>
+                <List.Item>
+                  <Label color="purple" horizontal>
+                    MAC
+                  </Label>
+                  00:50:56:85:5d:cd
+                </List.Item>
+                <List.Item>
+                  <Label color="red" horizontal>
+                    ID устройства
+                  </Label>
+                  r4t48uergh48834hrgg
+                </List.Item>
+                <List.Item>
+                  <Label color="yellow" horizontal>
+                    Параметр
+                  </Label>
+                  Параметр
+                </List.Item>
+              </List>
+            </Segment>
+            <Segment>
+              <Header block={true} as="h4">
+                Список сетей
+              </Header>
+              <div className="grid-test">
+                {cards.map(card => {
+                  return (
+                    <NetWorkCard
+                      key={card.name}
+                      name={card.name}
+                      ip4={card.ip4}
+                      ip6={card.ip6}
+                      bssid={card.bssid}
+                      channel={card.channel}
+                      update={card.update}
+                    />
+                  );
+                })}
+              </div>
+            </Segment>
           </div>
-        </Segment>
-      </div>
+        )}
+      </>
+      // }
     );
   }
 }
-export default CurrentUserStatus;
+const mapStateToProps = state => {
+  console.log("state", state);
+  return {
+    status: state.status
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    // userStatusFetch: (user, type, body) =>
+    // dispatch(userStatusFetch(user, type, body)),
+    // userStatusFormInputChange: e =>
+    //   dispatch(
+    //     userStatusFormInputChange(
+    //       e.target.getAttribute(["name"]),
+    //       e.target.value
+    //     )
+    //   )
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CurrentUserStatus);

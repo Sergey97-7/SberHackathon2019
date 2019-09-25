@@ -1,3 +1,4 @@
+import { getFormattedDate } from "../utils/tools";
 export const appState = { currentPage: "administration", appConfig: null };
 export const administrationState = {
   userSearchInputValue: ""
@@ -8,5 +9,10 @@ export const userState = {
     msg: ""
   },
   isLoading: false,
-  userList: []
+  user: null
+};
+export const statusForm = {
+  email: "",
+  periodFrom: getFormattedDate(new Date()),
+  periodTo: getFormattedDate(new Date())
 };

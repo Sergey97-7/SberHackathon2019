@@ -1,5 +1,95 @@
 {
-    "value": {
-        "user": "SUCCESS!!!"
-    } 
+  "value": [
+    {
+      "
+      "email": "serj@mail.ru",
+      "device": {
+        "versionRelease": "9",
+        "java.specification.version": "0.9",
+        "user.region": "US",
+        "java.class.path": ".",
+        "versionSdkInt": "28",
+        "type": "userdebug",
+        "java.vm.vendor": "The Android Project",
+        "user.variant": "",
+        "android.icu.impl.ICUBinary.dataPath": "/data/misc/zoneinfo/current/icu:/system/usr/icu",
+        "java.vendor.url": "http://www.android.com/",
+        "fingerprint": "google/sdk_gphone_x86/generic_x86:9/PSR1.180720.093/5456446:userdebug/dev-keys",
+        "host": "wphl12.hot.corp.google.com",
+        "android.icu.cldr.version": "32.0.1",
+        "os.name": "Linux",
+        "java.vm.specification.version": "0.9",
+        "model": "Android SDK built for x86",
+        "id": "PSR1.180720.093",
+        "brand": "google",
+        "java.net.preferIPv6Addresses": "false",
+        "hardware": "ranchu",
+        "android.zlib.version": "1.2.11",
+        "supportedAbis": ", x86",
+        "user.home": "",
+        "user.language": "en",
+        "java.specification.vendor": "The Android Project",
+        "java.home": "/system",
+        "tags": "dev-keys",
+        "file.separator": "/",
+        "line.separator": "\n",
+        "android.icu.unicode.version": "10.0",
+        "java.vm.specification.vendor": "The Android Project",
+        "java.specification.name": "Dalvik Core Library",
+        "java.compiler": "",
+        "android.icu.library.version": "60.2",
+        "device": "generic_x86",
+        "http.agent": "Dalvik/2.1.0 (Linux; U; Android 9; Android SDK built for x86 Build/PSR1.180720.093)",
+        "java.runtime.version": "0.9",
+        "user.name": "root",
+        "path.separator": ":",
+        "manufacturer": "Google",
+        "os.version": "4.4.124+",
+        "java.runtime.name": "Android Runtime",
+        "versionSecurityPatch": "2018-09-05",
+        "file.encoding": "UTF-8",
+        "bootloader": "unknown",
+        "supportedAbis32": ", x86",
+        "java.vm.name": "Dalvik",
+        "user.locale": "en-US",
+        "versionIncremental": "5456446"
+      },
+      "connection": {
+        "mac": "02:15:b2:00:00:00",
+        "ip": "192.168.232.2",
+        "speed": "6 Mbit/s",
+        "frequency": "2447 MHz",
+        "ssid": "\"AndroidWifi\"",
+        "level": "9",
+        "type": "Wifi",
+        "gateway": "192.168.232.1",
+        "dns1": "10.0.2.3",
+        "dns2": "0.0.0.0",
+        "hidden": "false",
+        "bssid": "02:15:b2:00:01:00"
+      },
+      "networks": [
+        {
+          "ssid": "AndroidWifi1",
+          "bssid": "02:15:b2:00:01:00",
+          "capabilities": "[ESS]",
+          "centerFreq0": "2437 MHz",
+          "centerFreq1": "0 MHz",
+          "channelWidth": "1",
+          "frequency": "2447 MHz",
+          "level": "-50 dB"
+        },
+        {
+          "ssid": "AndroidWifi2",
+          "bssid": "02:15:b2:00:01:01",
+          "capabilities": "[ESS]",
+          "centerFreq0": "2437 MHz",
+          "centerFreq1": "0 MHz",
+          "channelWidth": "1",
+          "frequency": "2447 MHz",
+          "level": "-50 dB"
+        }
+      ]
+    }
+  ]
 }

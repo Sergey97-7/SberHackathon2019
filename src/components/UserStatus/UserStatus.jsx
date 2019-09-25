@@ -16,7 +16,10 @@ import {
   Table
 } from "semantic-ui-react";
 import "./UserStatus.scss";
-import { userStatusFetch } from "../../actions/statusAction";
+import {
+  userStatusFetch,
+  userStatusFormInputChange
+} from "../../actions/statusAction";
 import moment from "moment";
 class UserStatus extends Component {
   getFormattedDate = date => {
@@ -28,20 +31,20 @@ class UserStatus extends Component {
     periodFrom: this.getFormattedDate(new Date()),
     periodTo: this.getFormattedDate(new Date())
   };
-  
+
   inputHandler = e => {
     this.setState({ [e.target.getAttribute(["name"])]: e.target.value });
   };
   btnUserStatusHandler = e => {
-    const { email, periodFrom, periodTo } = this.state;
-    let body = { email: this.state.email };
+    const { email, periodFrom, periodTo } = this.props.statusForm;
+    let body = { email };
     if (
       email.trim() !== "" &&
       periodFrom.trim() !== "" &&
       periodTo.trim() !== ""
     ) {
       // this.props.userStatusFetch("/rest/user/status", "POST", body);
-      this.props.userStatusFetch("/rest/user/status")
+      this.props.userStatusFetch("/rest/user/status");
       this.props.history.push("/status/current-user");
     } else {
       console.log("Заполните все поля!");
@@ -49,8 +52,11 @@ class UserStatus extends Component {
   };
   render() {
     console.log("DATE", new Date().toLocaleString());
-    const { email, periodFrom, periodTo } = this.state;
-    console.log("REACT_STATE", this.state);
+    console.log("REACT_STATE", this.props);
+    // const { email, periodFrom, periodTo } = this.state;
+    const { email, periodFrom, periodTo } = this.props.statusForm;
+    const { userStatusFormInputChange } = this.props;
+
     return (
       <div className="status">
         {/* <div> */}
@@ -75,7 +81,7 @@ class UserStatus extends Component {
           <Form.Input
             name="email"
             value={email}
-            onChange={this.inputHandler}
+            onChange={userStatusFormInputChange}
             className="text-left"
             label="Email: "
             type="email"
@@ -83,7 +89,7 @@ class UserStatus extends Component {
           <Form.Input
             name="periodFrom"
             value={periodFrom}
-            onChange={this.inputHandler}
+            onChange={userStatusFormInputChange}
             className="text-left"
             label="Период с:"
             type="datetime-local"
@@ -91,7 +97,7 @@ class UserStatus extends Component {
           <Form.Input
             name="periodTo"
             value={periodTo}
-            onChange={this.inputHandler}
+            onChange={userStatusFormInputChange}
             className="text-left"
             label="Период до:"
             type="datetime-local"
@@ -110,13 +116,21 @@ const mapStateToProps = state => {
   return {
     admin: state.administration,
     user: state.user,
-    roleAlias: state.app.appConfig.roles
+    roleAlias: state.app.appConfig.roles,
+    statusForm: state.statusForm
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     userStatusFetch: (user, type, body) =>
-      dispatch(userStatusFetch(user, type, body))
+      dispatch(userStatusFetch(user, type, body)),
+    userStatusFormInputChange: e =>
+      dispatch(
+        userStatusFormInputChange(
+          e.target.getAttribute(["name"]),
+          e.target.value
+        )
+      )
   };
 };
 export default connect(

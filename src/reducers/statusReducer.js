@@ -3,9 +3,10 @@ import {
   USER_STATUS_HAS_ERRORED,
   USER_STATUS_IS_LOADING,
   CHANGE_CURRENT_USER,
-  CREATE_CURRENT_USER
+  CREATE_CURRENT_USER,
+  USER_STATUS_FORM_INPUT_CHANGE
 } from "../constants/actions";
-import { userState } from "../constants/initialState";
+import { userState, statusForm } from "../constants/initialState";
 export function statusReducer(state = userState, action) {
   switch (action.type) {
     case USER_STATUS_SUCCESS_FETCH:
@@ -22,6 +23,16 @@ export function statusReducer(state = userState, action) {
           hasErrored: action.hasErrored,
           msg: action.msg
         }
+      });
+    default:
+      return state;
+  }
+}
+export function statusFormReducer(state = statusForm, action) {
+  switch (action.type) {
+    case USER_STATUS_FORM_INPUT_CHANGE:
+      return Object.assign({}, state, {
+        [action.field]: action.value
       });
     default:
       return state;

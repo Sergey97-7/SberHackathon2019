@@ -3,7 +3,8 @@ import {
   USER_STATUS_HAS_ERRORED,
   USER_STATUS_IS_LOADING,
   CHANGE_CURRENT_USER,
-  CREATE_CURRENT_USER
+  CREATE_CURRENT_USER,
+  USER_STATUS_FORM_INPUT_CHANGE
 } from "../constants/actions";
 import { fetchDataRedux } from "../utils/fetch";
 export function userStatusHasErrored(bool, msg) {
@@ -36,4 +37,12 @@ export function userStatusFetch(url, type, body) {
       type,
       body
     );
+}
+export function userStatusFormInputChange(field, value) {
+  console.log("ACTION", field, value)
+  return {
+    type: USER_STATUS_FORM_INPUT_CHANGE,
+    field,
+    value
+  };
 }
