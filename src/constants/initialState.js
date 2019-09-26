@@ -6,7 +6,8 @@ export const administrationState = {
 export const userState = {
   error: {
     hasErrored: false,
-    msg: ""
+    msg: "",
+    status: null
   },
   isLoading: false,
   userList: null
@@ -14,7 +15,8 @@ export const userState = {
 export const userStatusState = {
   error: {
     hasErrored: false,
-    msg: ""
+    msg: "",
+    status: null
   },
   isLoading: false,
   user: null,

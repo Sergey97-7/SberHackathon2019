@@ -6,11 +6,12 @@ import {
   CREATE_CURRENT_USER
 } from "../constants/actions";
 import { fetchDataRedux } from "../utils/fetch";
-export function userListHasErrored(bool, msg) {
+export function userListHasErrored(bool, msg, status) {
   return {
     type: USER_LIST_HAS_ERRORED,
     hasErrored: bool,
-    msg
+    msg,
+    status
   };
 }
 export function userListisLoading(bool) {

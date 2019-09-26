@@ -27,7 +27,7 @@ class CurrentUserStatus extends Component {
       return {
         key: i,
         value: req.timestamp,
-        text: moment(req.timestamp).format("DD-MM-YYYY, HH:MM:SS")
+        text: moment(req.timestamp).format("DD-MM-YYYY, HH:mm:ss")
       };
     });
   };

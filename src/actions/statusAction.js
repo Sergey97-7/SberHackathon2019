@@ -7,12 +7,14 @@ import {
   USER_STATUS_FORM_INPUT_CHANGE,
   USER_STATUS_DATE_CHANGE
 } from "../constants/actions";
+import { getFormattedDate } from "../utils/tools";
 import { fetchDataRedux } from "../utils/fetch";
-export function userStatusHasErrored(bool, msg) {
+export function userStatusHasErrored(bool, msg, status) {
   return {
     type: USER_STATUS_HAS_ERRORED,
     hasErrored: bool,
-    msg
+    msg,
+    status
   };
 }
 export function userStatusIsLoading(bool) {
@@ -52,13 +54,13 @@ export function userStatusDateInputChange(value) {
     value
   };
 }
-import { getFormattedDate } from "../utils/tools";
+
 export function userSetStatus(user) {
   return dispatch => {
-    const sorted = user.sort((a, b) => a.timestamp - b.timestamp);
-    console.log("DATE:", getFormattedDate(user[0].timestamp));
-    console.log("DATE@: ", sorted[0].timestamp);
-    dispatch(userStatusDateInputChange(sorted[0].timestamp));
-    dispatch(userStatusSuccessFetch(sorted));
+    user.sort((a, b) => b.timestamp - a.timestamp);
+    // console.log("DATE:", getFormattedDate(user[0].timestamp));
+    // console.log("DATE@: ", sorted[0].timestamp);
+    dispatch(userStatusDateInputChange(user[0].timestamp));
+    dispatch(userStatusSuccessFetch(user));
   };
 }
