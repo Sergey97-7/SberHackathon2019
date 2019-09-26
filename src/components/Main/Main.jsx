@@ -44,7 +44,7 @@ class Main extends Component {
       </Container> */
       <>
       {this.props.config !== null &&
-        <Container className="main">
+        // <Container className="main">
           <Segment>
             <Grid columns={2} stackable textAlign="center">
               <Grid.Row className="main-segment">
@@ -87,7 +87,7 @@ class Main extends Component {
             {/* <Route path="/administration" component={Administration} /> */}
             {/* </Segment> */}
           </Segment>
-        </Container>
+        // </Container>
         }
       </>
     );

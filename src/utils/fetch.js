@@ -1,11 +1,19 @@
 export const fetchData = async url => await (await fetch(url)).json();
 // export const fetchData = async url => {
 //   const a = await fetch(url);
-  //   throw Error("error");
-  //   return a;
+//   throw Error("error");
+//   return a;
 // };
 // export const fetchData = async url => await throw new Error();
-export const fetchDataRedux = async (url, dispatch, load, error, success, type="GET", body) => {
+export const fetchDataRedux = async (
+  url,
+  dispatch,
+  load,
+  error,
+  success,
+  type = "GET",
+  body
+) => {
   try {
     dispatch(load(true));
     const res = await fetch(url, {
@@ -16,12 +24,13 @@ export const fetchDataRedux = async (url, dispatch, load, error, success, type="
       },
       body: !!body ? JSON.stringify({ body }) : null
     });
-     dispatch(load(false))
+    dispatch(load(false));
     const data = await res.json();
-      dispatch(success(data.value));
+    dispatch(success(data.value));
   } catch (e) {
-     dispatch(error(true, e))
-     dispatch(load(false))
+    console.log("erROR: ", e)
+    dispatch(error(true, e));
+    dispatch(load(false));
   }
 };
 //TODO FIX !
@@ -32,7 +41,7 @@ export const fetchDataPost = async () => {
       Accept: "application/json",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({body: ""})
+    body: JSON.stringify({ body: "" })
   });
   const res = await rawResponse.json();
   if (res.value.hasOwnProperty("id")) this.props.createCurrentUser(res.value);

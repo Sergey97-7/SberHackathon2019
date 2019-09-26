@@ -4,10 +4,11 @@ import {
   USER_STATUS_IS_LOADING,
   CHANGE_CURRENT_USER,
   CREATE_CURRENT_USER,
-  USER_STATUS_FORM_INPUT_CHANGE
+  USER_STATUS_FORM_INPUT_CHANGE,
+  USER_STATUS_DATE_CHANGE
 } from "../constants/actions";
-import { userState, statusForm } from "../constants/initialState";
-export function statusReducer(state = userState, action) {
+import { userStatusState, statusForm } from "../constants/initialState";
+export function statusReducer(state = userStatusState, action) {
   switch (action.type) {
     case USER_STATUS_SUCCESS_FETCH:
       return Object.assign({}, state, {
@@ -24,6 +25,8 @@ export function statusReducer(state = userState, action) {
           msg: action.msg
         }
       });
+    case USER_STATUS_DATE_CHANGE:
+      return Object.assign({}, state, { dateInput: action.value });
     default:
       return state;
   }

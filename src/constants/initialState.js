@@ -9,7 +9,16 @@ export const userState = {
     msg: ""
   },
   isLoading: false,
-  user: null
+  userList: null
+};
+export const userStatusState = {
+  error: {
+    hasErrored: false,
+    msg: ""
+  },
+  isLoading: false,
+  user: null,
+  dateInput: null
 };
 export const statusForm = {
   email: "",

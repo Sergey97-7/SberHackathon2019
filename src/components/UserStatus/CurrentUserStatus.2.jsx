@@ -18,7 +18,19 @@ import {
   Select
 } from "semantic-ui-react";
 import NetWorkCard from "./NetworkCard";
+import moment from "moment";
+import { userStatusDateInputChange } from "../../actions/statusAction";
 class CurrentUserStatus extends Component {
+  getDateSelectOptions = () => {
+    const { user } = this.props.status;
+    return user.map((req, i) => {
+      return {
+        key: i,
+        value: req.timestamp,
+        text: moment(req.timestamp).format("DD-MM-YYYY, HH:MM:SS")
+      };
+    });
+  };
   render() {
     const countryOptions = [{ key: "af", value: "af", text: "Afghanistan" }];
     const cards = [
@@ -79,27 +91,42 @@ class CurrentUserStatus extends Component {
         update: new Date()
       }
     ];
-    const { error, isLoading, user } = this.props.status;
+    const { error, isLoading, user, dateInput } = this.props.status;
+    let currentUser;
+    if (!error.hasErrored && !isLoading && user !== null)
+      currentUser = user.find(user => dateInput === user.timestamp);
+    // console.log("error", moment(user[0].timestamp).format("DD-MM-YYYY, HH:MM:SS"));
     // {error.hasErrored ? (<div>Ошибка: {error.msg}</div>) : isLoading ? (<div>Загрузка...</div>) :
     return (
       <>
         {error.hasErrored ? (
-          <div>Ошибка: {error.msg}</div>
-        ) : (isLoading || user === null)  ? (
+          <div>Ошибка: {error.msg.toString()}</div>
+        ) : isLoading || user === null ? (
           <div>Загрузка...</div>
         ) : (
           <div className="current-user-status">
+            {/* {currentUser = user.find(user => dateInput === user.timestamp)} */}
             <Segment className="tts">
               <Header block={true} as="h4">
-                История запросов
+                История запросов пользователя: {user[0].email}
+                <Header.Subheader>
+                  {/* Date: {user.date} */}
+                  Время: {moment(dateInput).format("DD-MM-YYYY, HH:MM:SS")}
+                </Header.Subheader>
               </Header>
-              <Select placeholder="Время" options={countryOptions} />
+              <Select
+                placeholder="Время"
+                // defaultValue={user[0].timestamp}
+                value={dateInput}
+                onChange={this.props.userStatusDateInputChange}
+                options={this.getDateSelectOptions()}
+              />
             </Segment>
             <Segment>
               <Header block={true} as="h4">
                 Статус устройства
               </Header>
-              <List className="text-left" divided selection>
+              {/* <List className="text-left" divided selection>
                 <List.Item>
                   <Label color="green" horizontal>
                     Пользователь
@@ -124,13 +151,143 @@ class CurrentUserStatus extends Component {
                   </Label>
                   Параметр
                 </List.Item>
-              </List>
+              </List> */}
+              <Table celled>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Поле</Table.HeaderCell>
+                    <Table.HeaderCell>Значение</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {user.length !== 0
+                    ? Object.keys(currentUser.device).map(field => {
+                        return (
+                          <Table.Row key={field}>
+                            <Table.Cell>{field}</Table.Cell>
+                            <Table.Cell>{currentUser.device[field]}</Table.Cell>
+                          </Table.Row>
+                        );
+                      })
+                    : null}
+                </Table.Body>
+              </Table>
+            </Segment>
+            <Segment>
+              <Header block={true} as="h4">
+              Текущая сеть: {currentUser.connection.ssid}
+              </Header>
+              {/* <List className="text-left" divided selection>
+                <List.Item>
+                  <Label color="green" horizontal>
+                    Пользователь
+                  </Label>
+                  user1@sberbank.ru
+                </List.Item>
+                <List.Item>
+                  <Label color="purple" horizontal>
+                    MAC
+                  </Label>
+                  00:50:56:85:5d:cd
+                </List.Item>
+                <List.Item>
+                  <Label color="red" horizontal>
+                    ID устройства
+                  </Label>
+                  r4t48uergh48834hrgg
+                </List.Item>
+                <List.Item>
+                  <Label color="yellow" horizontal>
+                    Параметр
+                  </Label>
+                  Параметр
+                </List.Item>
+              </List> */}
+              <Table celled>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Поле</Table.HeaderCell>
+                    <Table.HeaderCell>Значение</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {user.length !== 0
+                    ? Object.keys(currentUser.connection).map(field => {
+                        return (
+                          <Table.Row key={field}>
+                            <Table.Cell>{field}</Table.Cell>
+                            <Table.Cell>
+                              {currentUser.connection[field]}
+                            </Table.Cell>
+                          </Table.Row>
+                        );
+                      })
+                    : null}
+                </Table.Body>
+              </Table>
             </Segment>
             <Segment>
               <Header block={true} as="h4">
                 Список сетей
               </Header>
-              <div className="grid-test">
+              {/* <Table celled>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Поле</Table.HeaderCell>
+                    <Table.HeaderCell>Значение</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {user.length !== 0
+                    ? Object.keys(currentUser.connection).map(field => {
+                        return (
+                          <Table.Row key={field}>
+                            <Table.Cell>{field}</Table.Cell>
+                            <Table.Cell>
+                              {currentUser.connection[field]}
+                            </Table.Cell>
+                          </Table.Row>
+                        );
+                      })
+                    : null}
+                </Table.Body>
+              </Table> */}
+
+              {currentUser.networks.map((network, i) => {
+                return (
+                  <Table celled key={i}>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell>Поле</Table.HeaderCell>
+                        <Table.HeaderCell>Значение</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                      {user.length !== 0
+                        ? Object.keys(network).map(field => {
+                            return (
+                              <Table.Row key={field}>
+                                <Table.Cell>{field}</Table.Cell>
+                                <Table.Cell>{network[field]}</Table.Cell>
+                              </Table.Row>
+                            );
+                          })
+                        : null}
+                    </Table.Body>
+                  </Table>
+                );
+              })}
+              {/* {currentUser.networks.map(network => {
+                return (
+                  
+                )
+              }
+              }))} */}
+              {/* Object.keys(network).map(field=> {
+                return (
+                  
+                ) */}
+              {/* <div className="grid-test">
                 {cards.map(card => {
                   return (
                     <NetWorkCard
@@ -144,7 +301,7 @@ class CurrentUserStatus extends Component {
                     />
                   );
                 })}
-              </div>
+              </div> */}
             </Segment>
           </div>
         )}
@@ -161,8 +318,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    // userStatusFetch: (user, type, body) =>
-    // dispatch(userStatusFetch(user, type, body)),
+    userStatusDateInputChange: (e, { value }) =>
+      dispatch(userStatusDateInputChange(value))
     // userStatusFormInputChange: e =>
     //   dispatch(
     //     userStatusFormInputChange(

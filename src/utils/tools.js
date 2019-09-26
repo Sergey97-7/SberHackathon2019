@@ -1,4 +1,4 @@
 import moment from "moment";
 export const getFormattedDate = date => {
-  return moment(date).format("YYYY-MM-DDTHH:mm");
+  return moment(date).format("YYYY-MM-DDTHH:mm:ss");
 };
