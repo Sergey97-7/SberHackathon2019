@@ -27,3 +27,9 @@ export const statusForm = {
   periodFrom: getFormattedDate(new Date()),
   periodTo: getFormattedDate(new Date())
 };
+export const modalAlertState = {
+  isOpen: false,
+  msg: "",
+  timer: null,
+  importance: "info"
+};

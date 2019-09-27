@@ -21,6 +21,7 @@ import AdministrationCreate from "../Administration/AdministrationCreate";
 import UserStatus from "../UserStatus/UserStatus";
 import CurrentUserStatus from "../UserStatus/CurrentUserStatus.2";
 import { userListFetch } from "../../actions/userActions";
+import ModalAlert from "../ModalAlert";
 class Main extends Component {
   componentDidMount() {
     this.props.userListFetch("/rest/users");
@@ -43,6 +44,7 @@ class Main extends Component {
         </Grid>
       </Container> */
       <>
+      <ModalAlert isOpen={true} msg="Test message" importance="info"/>
       {this.props.config !== null &&
         // <Container className="main">
           <Segment>
