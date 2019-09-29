@@ -22,6 +22,7 @@ import UserStatus from "../UserStatus/UserStatus";
 import CurrentUserStatus from "../UserStatus/CurrentUserStatus.2";
 import { userListFetch } from "../../actions/userActions";
 import ModalAlert from "../ModalAlert";
+import { changeModalAlert } from "../../actions/modalAction";
 class Main extends Component {
   componentDidMount() {
     this.props.userListFetch("/rest/users");
@@ -30,6 +31,7 @@ class Main extends Component {
   }
   render() {
     console.log("pro", this.props);
+    const { importance, isOpen, msg, timer } = this.props.modal;
     return (
       /*   <Container className="main">
         <Grid columns="two" stretched={true}>
@@ -44,9 +46,34 @@ class Main extends Component {
         </Grid>
       </Container> */
       <>
-      <ModalAlert isOpen={true} msg="Test message" importance="info"/>
-      {this.props.config !== null &&
-        // <Container className="main">
+        <ModalAlert
+          isOpen={isOpen}
+          msg={msg}
+          importance={importance}
+          changeModalAlert={this.props.changeModalAlert}
+          timer={timer}
+        />
+        <button
+          onClick={() =>
+            this.props.changeModalAlert(true, "Test Message", 2000, "info")
+          }
+        >
+          12354
+        </button>
+        <button
+          onClick={() =>
+            this.props.changeModalAlert(
+              true,
+              "Another test msg 2!!!",
+              2000,
+              "info"
+            )
+          }
+        >
+          12354222
+        </button>
+        {this.props.config !== null && (
+          // <Container className="main">
           <Segment>
             <Grid columns={2} stackable textAlign="center">
               <Grid.Row className="main-segment">
@@ -89,8 +116,8 @@ class Main extends Component {
             {/* <Route path="/administration" component={Administration} /> */}
             {/* </Segment> */}
           </Segment>
-        // </Container>
-        }
+          // </Container>
+        )}
       </>
     );
   }
@@ -99,12 +126,15 @@ const mapStateToProps = state => {
   console.log("state", state);
   return {
     admin: state.administration,
-    config: state.app.appConfig
+    config: state.app.appConfig,
+    modal: state.modal
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    userListFetch: url => dispatch(userListFetch(url))
+    userListFetch: url => dispatch(userListFetch(url)),
+    changeModalAlert: (bool, msg, timer, importance) =>
+      dispatch(changeModalAlert(bool, msg, timer, importance))
   };
 };
 export default connect(
