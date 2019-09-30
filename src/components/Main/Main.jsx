@@ -30,7 +30,8 @@ class Main extends Component {
     // setTimeout(()=>console.log("FETCH_DATA", fetchData), 1000)
   }
   render() {
-    console.log("pro", this.props);
+    // console.log("pro", this.props);
+    console.log("PROP?ROUTER", this.props);
     const { importance, isOpen, msg, timer } = this.props.modal;
     return (
       /*   <Container className="main">
@@ -55,7 +56,7 @@ class Main extends Component {
         />
         <button
           onClick={() =>
-            this.props.changeModalAlert(true, "Test Message", 2000, "info")
+            this.props.changeModalAlert(true, "Test Message", 2000, "success")
           }
         >
           12354
@@ -66,7 +67,7 @@ class Main extends Component {
               true,
               "Another test msg 2!!!",
               2000,
-              "info"
+              "warning"
             )
           }
         >
@@ -79,7 +80,7 @@ class Main extends Component {
               <Grid.Row className="main-segment">
                 <Grid.Column width={4}>
                   <Segment className="side-menu-segment">
-                    <Sidebar />
+                    <Sidebar pathname={this.props.location.pathname} />
                   </Segment>
                 </Grid.Column>
                 <Grid.Column width={11}>

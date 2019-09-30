@@ -3,6 +3,12 @@ import { Message } from "semantic-ui-react";
 import { connect } from "react-redux";
 // import { changeModalAlert } from "../../actions/modalAction";
 import "./ModalAlert.scss";
+import {
+  infoModal,
+  warningModal,
+  successModal,
+  negativeModal
+} from "../../constants/constants";
 class ModalAlert extends PureComponent {
   timer = null;
   componentDidUpdate() {
@@ -28,7 +34,12 @@ class ModalAlert extends PureComponent {
     return (
       isOpen && (
         <div className="modal-alert">
-          <Message importance={importance}>
+          <Message
+            info={importance === infoModal ? true : null}
+            warning={importance === warningModal ? true : null}
+            success={importance === successModal ? true : null}
+            negative={importance === negativeModal ? true : null}
+          >
             <Message.Header>{msg}</Message.Header>
           </Message>
         </div>

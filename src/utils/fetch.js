@@ -27,11 +27,17 @@ export const fetchDataRedux = async (
     dispatch(load(false));
     console.log("REST", res);
     const data = await res.json();
-    if (res.status === 200 || res.status === 204) {
-      dispatch(success(data.value));
+    if (
+      (res.status === 200 || res.status === 204) &&
+      data.hasOwnProperty("value")
+    ) {
+      if (data.value.length !== 0) {
+        dispatch(success(data.value));
+      }
     } else {
       dispatch(error(true, data.error, res.status));
     }
+    return data;
   } catch (e) {
     console.log("erROR: ", e);
     dispatch(error(true, e));

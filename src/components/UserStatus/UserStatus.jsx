@@ -21,6 +21,13 @@ import {
   userStatusFormInputChange
 } from "../../actions/statusAction";
 import moment from "moment";
+import { changeModalAlert } from "../../actions/modalAction";
+import {
+  infoModal,
+  warningModal,
+  successModal,
+  negativeModal
+} from "../../constants/constants";
 class UserStatus extends Component {
   getFormattedDate = date => {
     return moment(date).format("YYYY-MM-DDTHH:mm");
@@ -44,10 +51,26 @@ class UserStatus extends Component {
       periodTo.trim() !== ""
     ) {
       // this.props.userStatusFetch("/rest/user/status", "POST", body);
-      this.props.userStatusFetch("/rest/user/status");
-      this.props.history.push("/status/current-user");
+      this.props.userStatusFetch("/rest/user/status").then(data => {
+        console.log("!@3123434534", data);
+        if (data.hasOwnProperty("value") && data.value.length === 0) {
+          this.props.changeModalAlert(
+            true,
+            "Статусы не найдены",
+            2000,
+            negativeModal
+          );
+        } else {
+          this.props.history.push("/status/current-user");
+        }
+      });
     } else {
-      console.log("Заполните все поля!");
+      this.props.changeModalAlert(
+        true,
+        "Заполните все поля!",
+        2000,
+        warningModal
+      );
     }
   };
   render() {
@@ -130,7 +153,9 @@ const mapDispatchToProps = dispatch => {
           e.target.getAttribute(["name"]),
           e.target.value
         )
-      )
+      ),
+    changeModalAlert: (bool, msg, timer, importance) =>
+      dispatch(changeModalAlert(bool, msg, timer, importance))
   };
 };
 export default connect(

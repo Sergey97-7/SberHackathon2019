@@ -14,7 +14,8 @@ class Sidebar extends Component {
   };
   render() {
     const { activeItem } = this.state;
-    const { currentPage, changePage } = this.props;
+    const { currentPage, changePage, pathname } = this.props;
+
     return (
       <div className="sidebar">
         <Menu pointing vertical>
@@ -46,7 +47,7 @@ class Sidebar extends Component {
             name="administration"
             as={Link}
             link={true}
-            active={currentPage === "administration"}
+            active={pathname.startsWith("/administration")}
             to={"/administration"}
             onClick={changePage}
           >
@@ -57,7 +58,7 @@ class Sidebar extends Component {
             name="status"
             as={Link}
             link={true}
-            active={currentPage === "status"}
+            active={pathname.startsWith("/status")}
             to={"/status"}
             // onClick={changePage}
             onClick={changePage}

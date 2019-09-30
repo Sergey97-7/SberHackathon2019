@@ -111,7 +111,7 @@ class CurrentUserStatus extends Component {
                 История запросов пользователя: {user[0].email}
                 <Header.Subheader>
                   {/* Date: {user.date} */}
-                  Время: {moment(dateInput).format("DD-MM-YYYY, HH:MM:SS")}
+                  Время: {moment(dateInput).format("DD-MM-YYYY, HH:mm:ss")}
                 </Header.Subheader>
               </Header>
               <Select
