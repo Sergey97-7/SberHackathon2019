@@ -26,8 +26,8 @@ class CurrentUserStatus extends Component {
     return user.map((req, i) => {
       return {
         key: i,
-        value: req.timestamp,
-        text: moment(req.timestamp).format("DD-MM-YYYY, HH:mm:ss")
+        value: +moment(req.measurementTime),
+        text: moment(req.measurementTime).format("DD-MM-YYYY, HH:mm:ss")
       };
     });
   };
@@ -94,7 +94,7 @@ class CurrentUserStatus extends Component {
     const { error, isLoading, user, dateInput } = this.props.status;
     let currentUser;
     if (!error.hasErrored && !isLoading && user !== null)
-      currentUser = user.find(user => dateInput === user.timestamp);
+      currentUser = user.find(user => dateInput === user.measurementTime);
     // console.log("error", moment(user[0].timestamp).format("DD-MM-YYYY, HH:MM:SS"));
     // {error.hasErrored ? (<div>Ошибка: {error.msg}</div>) : isLoading ? (<div>Загрузка...</div>) :
     return (
@@ -108,7 +108,7 @@ class CurrentUserStatus extends Component {
             {/* {currentUser = user.find(user => dateInput === user.timestamp)} */}
             <Segment className="tts">
               <Header block={true} as="h4">
-                История запросов пользователя: {user[0].email}
+                История запросов пользователя: {currentUser.account.email}
                 <Header.Subheader>
                   {/* Date: {user.date} */}
                   Время: {moment(dateInput).format("DD-MM-YYYY, HH:mm:ss")}
@@ -227,6 +227,39 @@ class CurrentUserStatus extends Component {
               </Table>
             </Segment>
             <Segment>
+
+            <Header block={true} as="h4">
+                Test Kit
+              </Header>
+            <Table celled>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Поле</Table.HeaderCell>
+                    <Table.HeaderCell>Значение</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {user.length !== 0
+                    ? Object.keys(currentUser.testKit).map(field => {
+                        return (
+                          <Table.Row key={field}>
+                            <Table.Cell>{field}</Table.Cell>
+                            <Table.Cell>
+                              {currentUser.connection[field]}
+                            </Table.Cell>
+                          </Table.Row>
+                        );
+                      })
+                    : null}
+                </Table.Body>
+              </Table>
+            </Segment>
+            <Segment>
+            <Header block={true} as="h4">
+                Комментарий пользователя
+              </Header>
+            <p>{currentUser.comment}</p>
+
               <Header block={true} as="h4">
                 Список сетей
               </Header>
