@@ -57,7 +57,7 @@ export function userStatusDateInputChange(value) {
 
 export function userSetStatus(user) {
   return dispatch => {
-    console.log("TIMETEST: ",getUnixDate(user[0].measurementTime))
+    console.log("TIMETEST: ", getUnixDate(user[0].measurementTime));
     user.sort(
       (a, b) => getUnixDate(b.measurementTime) - getUnixDate(a.measurementTime)
     );

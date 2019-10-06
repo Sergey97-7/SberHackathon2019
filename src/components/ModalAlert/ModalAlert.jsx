@@ -9,21 +9,39 @@ import {
   successModal,
   negativeModal
 } from "../../constants/constants";
+import { changeModalAlert } from "../../actions/modalAction";
 class ModalAlert extends PureComponent {
+  state = {
+    timer: null
+  };
   timer = null;
+  // componentDidMount() {
+  //   clearTimeout(this.timer);
+  //   console.log("TIMER", this.props.timer);
+  //   this.timer = setTimeout(
+  //     () => {
+  //       console.log("changeModalAlert2", this.props.timer);
+  //       this.props.changeModalAlert(false, "", 0, "")
+  //     } ,
+  //     this.props.timer
+  //   );
+  // }
   componentDidUpdate() {
-    //TODO infinite call
-    console.log("INFINITE UPDATE", this.props);
     clearTimeout(this.timer);
-    this.timer = setTimeout(
-      () => this.props.changeModalAlert(false, "", 0, ""),
-      this.props.timer
-    );
-    // let a = setTimeout(console.log("CHANGE2222", this.props), 3000);
+    console.log("TIMER", this.props.timer);
+    this.timer = setTimeout(() => {
+      console.log("changeModalAlert2", this.props.timer);
+      this.props.changeModalAlert(false, "", 0, "");
+    }, 2000);
   }
   // componentDidUpdate() {
-  // console.log("propsWILL", this.props);
-  // clearTimeout(this.timer);
+  //   //TODO infinite call
+  //   console.log("INFINITE UPDATE", this.props);
+  //   clearTimeout(this.timer);
+  //   this.timer = setTimeout(
+  //     () => this.props.changeModalAlert(false, "", 0, ""),
+  //     this.props.timer
+  //   );
   // }
   componentWillUnmount() {
     clearTimeout(this.timer);
@@ -59,8 +77,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    //   userStatusFetch: (user, type, body) =>
-    //     dispatch(userStatusFetch(user, type, body)),
+    changeModalAlert2: (bool, msg, timer, importance) =>
+      dispatch(changeModalAlert(bool, msg, timer, importance))
     //   userStatusFormInputChange: e =>
     //     dispatch(
     //       userStatusFormInputChange(

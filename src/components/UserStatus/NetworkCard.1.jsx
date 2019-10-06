@@ -22,7 +22,7 @@ class NetworkCard extends Component {
     const { name, ip4, ip6, bssid, channel, update } = this.props;
     return (
       <Segment>
-        <List className="text-left" divided selection>
+        <List divided selection>
           <List.Item>
             <Label color="black" horizontal>
               Имя сети

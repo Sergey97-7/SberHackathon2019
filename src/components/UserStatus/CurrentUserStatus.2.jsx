@@ -20,81 +20,33 @@ import {
 import NetWorkCard from "./NetworkCard";
 import moment from "moment";
 import { userStatusDateInputChange } from "../../actions/statusAction";
+import { getUnixDate } from "../../utils/tools";
+import ScrollButton from "../ScrollButton";
 class CurrentUserStatus extends Component {
   getDateSelectOptions = () => {
     const { user } = this.props.status;
     return user.map((req, i) => {
       return {
         key: i,
-        value: +moment(req.measurementTime),
-        text: moment(req.measurementTime).format("DD-MM-YYYY, HH:mm:ss")
+        value: getUnixDate(req.measurementTime),
+        text: moment(getUnixDate(req.measurementTime)).format(
+          "DD-MM-YYYY, HH:mm:ss"
+        )
       };
     });
   };
+
+
   render() {
-    const countryOptions = [{ key: "af", value: "af", text: "Afghanistan" }];
-    const cards = [
-      {
-        name: " сеть1",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть2",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть3",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть4",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть5",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть6",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      },
-      {
-        name: " сеть7",
-        ip4: "10.68.198.94",
-        ip6: "fe80::250:56ff:fe85:5dcd",
-        bssid: "BSSID1",
-        channel: "12",
-        update: new Date()
-      }
-    ];
     const { error, isLoading, user, dateInput } = this.props.status;
     let currentUser;
-    if (!error.hasErrored && !isLoading && user !== null)
-      currentUser = user.find(user => dateInput === user.measurementTime);
+    if (!error.hasErrored && !isLoading && user !== null) {
+      currentUser = user.find(
+        user => dateInput === getUnixDate(user.measurementTime)
+      );
+    }
+
+    console.log("SSS", document.documentElement.scrollTop);
     // console.log("error", moment(user[0].timestamp).format("DD-MM-YYYY, HH:MM:SS"));
     // {error.hasErrored ? (<div>Ошибка: {error.msg}</div>) : isLoading ? (<div>Загрузка...</div>) :
     return (
@@ -106,6 +58,7 @@ class CurrentUserStatus extends Component {
         ) : (
           <div className="current-user-status">
             {/* {currentUser = user.find(user => dateInput === user.timestamp)} */}
+            <ScrollButton />
             <Segment className="tts">
               <Header block={true} as="h4">
                 История запросов пользователя: {currentUser.account.email}
@@ -175,7 +128,7 @@ class CurrentUserStatus extends Component {
             </Segment>
             <Segment>
               <Header block={true} as="h4">
-              Текущая сеть: {currentUser.connection.ssid}
+                Текущая сеть: {currentUser.connection.ssid}
               </Header>
               {/* <List className="text-left" divided selection>
                 <List.Item>
@@ -227,11 +180,10 @@ class CurrentUserStatus extends Component {
               </Table>
             </Segment>
             <Segment>
-
-            <Header block={true} as="h4">
+              <Header block={true} as="h4">
                 Test Kit
               </Header>
-            <Table celled>
+              <Table celled>
                 <Table.Header>
                   <Table.Row>
                     <Table.HeaderCell>Поле</Table.HeaderCell>
@@ -255,10 +207,10 @@ class CurrentUserStatus extends Component {
               </Table>
             </Segment>
             <Segment>
-            <Header block={true} as="h4">
+              <Header block={true} as="h4">
                 Комментарий пользователя
               </Header>
-            <p>{currentUser.comment}</p>
+              <p>{currentUser.comment}</p>
 
               <Header block={true} as="h4">
                 Список сетей

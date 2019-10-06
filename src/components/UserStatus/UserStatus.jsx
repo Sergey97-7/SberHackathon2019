@@ -1,20 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Message,
-  Segment,
-  Container,
-  Input,
-  Icon,
-  Label,
-  Menu,
-  Table
-} from "semantic-ui-react";
+import { Button, Form, Header } from "semantic-ui-react";
 import "./UserStatus.scss";
 import {
   userStatusFetch,
@@ -53,7 +40,7 @@ class UserStatus extends Component {
       // this.props.userStatusFetch("/rest/user/status", "POST", body);
       this.props.userStatusFetch("/rest/user/status").then(data => {
         console.log("!@3123434534", data);
-        if (data.hasOwnProperty("value") && data.value.length === 0) {
+        if (data.status === 204) {
           this.props.changeModalAlert(
             true,
             "Статусы не найдены",
@@ -68,44 +55,25 @@ class UserStatus extends Component {
       this.props.changeModalAlert(
         true,
         "Заполните все поля!",
-        2000,
+        4000,
         warningModal
       );
     }
   };
   render() {
-    console.log("DATE", new Date().toLocaleString());
-    console.log("REACT_STATE", this.props);
-    // const { email, periodFrom, periodTo } = this.state;
     const { email, periodFrom, periodTo } = this.props.statusForm;
     const { userStatusFormInputChange } = this.props;
 
     return (
       <div className="status">
-        {/* <div> */}
         <Header className="text-left" size="medium">
           Поиск
         </Header>
-        {/* <Form>
-           <Form.Field>
-            <Input label="Номер Заявки: " placeholder="Поиск..." fluid action="Поиск" />
-          </Form.Field> *
-          <Form.Field>
-            <Input
-              label="Email: "
-              placeholder="Поиск..."
-              fluid
-              action="Поиск"
-            />
-          </Form.Field>
-          
-        </Form> */}
         <Form>
           <Form.Input
             name="email"
             value={email}
             onChange={userStatusFormInputChange}
-            className="text-left"
             label="Email: "
             type="email"
           />
@@ -113,7 +81,6 @@ class UserStatus extends Component {
             name="periodFrom"
             value={periodFrom}
             onChange={userStatusFormInputChange}
-            className="text-left"
             label="Период с:"
             type="datetime-local"
           />
@@ -121,7 +88,6 @@ class UserStatus extends Component {
             name="periodTo"
             value={periodTo}
             onChange={userStatusFormInputChange}
-            className="text-left"
             label="Период до:"
             type="datetime-local"
           />

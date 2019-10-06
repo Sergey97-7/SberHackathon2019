@@ -1,28 +1,12 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
-import { connect } from "react-redux";
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Message,
-  Segment,
-  Container,
-  Input,
-  Icon,
-  Label,
-  Menu,
-  Table,
-  List
-} from "semantic-ui-react";
+import { Segment, Label, List } from "semantic-ui-react";
 import moment from "moment";
 class NetworkCard extends Component {
   render() {
     const { name, ip4, ip6, bssid, channel, update } = this.props;
     return (
       <Segment>
-        <List className="text-left" divided selection>
+        <List divided selection>
           <List.Item>
             <Label color="green" horizontal>
               Имя сети
