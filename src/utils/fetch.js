@@ -22,23 +22,31 @@ export const fetchDataRedux = async (
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: !!body ? JSON.stringify({ body }) : null
+      body: !!body ? JSON.stringify({ ...body }) : null
     });
     dispatch(load(false));
-    const data = await res.json();
-    if (
-      (res.status === 200 || res.status === 204) &&
-      data.hasOwnProperty("value")
+    let data;
+    if (res.status >=400) {
+      console.log("STATUS", res)
+      dispatch(error(true, res.statusText, res.status));
+    }
+    else if (
+      (res.status === 200 || res.status === 204)
     ) {
+      data =  await res.json();
       dispatch(success(data.value));
     } else {
+     data = await res.json();
       dispatch(error(true, data.error, res.status));
     }
+    console.log("FETCH", res);
     return { data, status: res.status };
   } catch (e) {
-    console.log("erROR: ", e);
+    console.log("erROR: ",  e.msg);
+    console.log("erROR: ", typeof e.msg);
     dispatch(error(true, e));
     dispatch(load(false));
+    return { error: e};
   }
 };
 //TODO FIX !

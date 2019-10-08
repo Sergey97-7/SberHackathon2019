@@ -31,26 +31,47 @@ class UserStatus extends Component {
   };
   btnUserStatusHandler = e => {
     const { email, periodFrom, periodTo } = this.props.statusForm;
-    let body = { email };
+    let body = {
+      email,
+      startTime: moment(periodFrom)
+        .utcOffset("GTM -00:00")
+        .format("DD-MM-YYYY HH:mm:ss"),
+      endTime: moment(periodTo)
+        .utcOffset("GTM -00:00")
+        .format("DD-MM-YYYY HH:mm:ss")
+    };
     if (
       email.trim() !== "" &&
       periodFrom.trim() !== "" &&
       periodTo.trim() !== ""
     ) {
       // this.props.userStatusFetch("/rest/user/status", "POST", body);
-      this.props.userStatusFetch("/rest/user/status").then(data => {
-        console.log("!@3123434534", data);
-        if (data.status === 204) {
-          this.props.changeModalAlert(
-            true,
-            "Статусы не найдены",
-            2000,
-            negativeModal
-          );
-        } else {
-          this.props.history.push("/status/current-user");
-        }
-      });
+      this.props
+        .userStatusFetch("/rest/measurements", "POST", body)
+        .then(data => {
+          console.log("!@3123434534", data);
+          if (this.props.statusError.hasErrored) {
+            this.props.changeModalAlert(
+              true,
+              `${
+                this.props.statusError.status
+                  ? this.props.statusError.status
+                  : ""
+              }: ${this.props.statusError.msg.toString()}`,
+              2000,
+              negativeModal
+            );
+          } else if (data.status === 204) {
+            this.props.changeModalAlert(
+              true,
+              "Статусы не найдены",
+              2000,
+              negativeModal
+            );
+          } else {
+            this.props.history.push("/status/current-user");
+          }
+        });
     } else {
       this.props.changeModalAlert(
         true,
@@ -106,7 +127,8 @@ const mapStateToProps = state => {
     admin: state.administration,
     user: state.user,
     roleAlias: state.app.appConfig.roles,
-    statusForm: state.statusForm
+    statusForm: state.statusForm,
+    statusError: state.status.error
   };
 };
 const mapDispatchToProps = dispatch => {

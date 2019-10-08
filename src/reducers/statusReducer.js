@@ -22,7 +22,8 @@ export function statusReducer(state = userStatusState, action) {
       return Object.assign({}, state, {
         error: {
           hasErrored: action.hasErrored,
-          msg: action.msg
+          msg: action.msg,
+          status: action.status
         }
       });
     case USER_STATUS_DATE_CHANGE:

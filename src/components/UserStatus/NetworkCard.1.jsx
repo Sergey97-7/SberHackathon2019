@@ -57,7 +57,7 @@ class NetworkCard extends Component {
             <Label color="black" horizontal>
               Обновлено
             </Label>
-            {moment(new Date()).format("MM Do YYYY, hh:mm:ss")}
+            {moment(new Date()).format("MM Do YYYY, HH:mm:ss")}
           </List.Item>
         </List>
       </Segment>
