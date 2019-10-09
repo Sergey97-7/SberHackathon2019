@@ -47,7 +47,7 @@ class UserStatus extends Component {
     ) {
       // this.props.userStatusFetch("/rest/user/status", "POST", body);
       this.props
-        .userStatusFetch("/rest/measurements", "POST", body)
+        .userStatusFetch("/rest/measurements")
         .then(data => {
           console.log("!@3123434534", data);
           if (this.props.statusError.hasErrored) {

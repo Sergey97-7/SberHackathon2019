@@ -15,7 +15,9 @@ export const fetchDataRedux = async (
   body
 ) => {
   try {
+
     dispatch(load(true));
+    dispatch(error(false));
     const res = await fetch(url, {
       method: type,
       headers: {
@@ -25,18 +27,18 @@ export const fetchDataRedux = async (
       body: !!body ? JSON.stringify({ ...body }) : null
     });
     dispatch(load(false));
-    let data;
+    let data = await res.json();
     if (res.status >=400) {
       console.log("STATUS", res)
-      dispatch(error(true, res.statusText, res.status));
+      // dispatch(error(true, data.status || res.statusText, res.status || data.error));
+      dispatch(error(true, res.statusText !== "" && typeof res.statusText !== "undefined" ? res.statusText : data.status, 
+      res.statusText !== "" && typeof res.statusText !== "undefined" ? res.statusText : data.status));
     }
     else if (
       (res.status === 200 || res.status === 204)
     ) {
-      data =  await res.json();
       dispatch(success(data.value));
     } else {
-     data = await res.json();
       dispatch(error(true, data.error, res.status));
     }
     console.log("FETCH", res);
