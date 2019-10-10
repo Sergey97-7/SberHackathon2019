@@ -62,8 +62,20 @@ class CurrentUserStatus extends Component {
             <Segment className="tts">
               <Header block={true} as="h4">
                 История запросов пользователя: {currentUser.account.email}
+                <Header.Subheader>
+                  {/* Date: {user.date} */}
+                  Последний запрос:{" "}
+                  {moment(user.measurementTime).format("DD-MM-YYYY, HH:mm:ss")}
+                </Header.Subheader>
               </Header>
-              <StatusList user={user} currentDate={dateInput} />
+              <StatusList user={user} currentDate={dateInput}/>
+              <Select
+                placeholder="Время"
+                // defaultValue={user[0].timestamp}
+                value={dateInput}
+                onChange={this.props.userStatusDateInputChange}
+                options={this.getDateSelectOptions()}
+              />
             </Segment>
             <Segment>
               <Header block={true} as="h4">
