@@ -48,22 +48,29 @@ export function userStatusFormInputChange(field, value) {
     value
   };
 }
-export function userStatusDateInputChange(value) {
+export function userStatusDateInputChange(value, id, e, f) {
+  console.log("userStatusDateInputChange", value, id, e, f);
   return {
     type: USER_STATUS_DATE_CHANGE,
-    value
+    value,
+    id
   };
 }
 
 export function userSetStatus(user) {
   return dispatch => {
-    console.log("TIMETEST: ", getUnixDate(user[0].measurementTime));
     user.sort(
       (a, b) => getUnixDate(b.measurementTime) - getUnixDate(a.measurementTime)
     );
     // console.log("DATE:", getFormattedDate(user[0].timestamp));
     // console.log("DATE@: ", sorted[0].timestamp);
-    dispatch(userStatusDateInputChange(getUnixDate(user[0].measurementTime)));
+    console.log("TIMETEST: ", user[0].id);
+    dispatch(
+      userStatusDateInputChange(
+        getUnixDate(user[0].measurementTime),
+        user[0].id
+      )
+    );
     dispatch(userStatusSuccessFetch(user));
   };
 }

@@ -27,9 +27,11 @@ class CurrentUserStatus extends Component {
   getDateSelectOptions = () => {
     const { user } = this.props.status;
     return user.map((req, i) => {
+      console.log("req", req);
       return {
         key: i,
-        value: getUnixDate(req.measurementTime),
+        name:  getUnixDate(req.measurementTime),
+        value: req.id,
         text: moment(getUnixDate(req.measurementTime)).format(
           "DD-MM-YYYY, HH:mm:ss"
         )
@@ -38,12 +40,16 @@ class CurrentUserStatus extends Component {
   };
 
   render() {
-    const { error, isLoading, user, dateInput } = this.props.status;
+    const {
+      error,
+      isLoading,
+      user,
+      dateInput,
+      currentUserId
+    } = this.props.status;
     let currentUser;
     if (!error.hasErrored && !isLoading && user !== null) {
-      currentUser = user.find(
-        user => dateInput === getUnixDate(user.measurementTime)
-      );
+      currentUser = user.find(user => currentUserId === user.id);
     }
 
     console.log("SSS", document.documentElement.scrollTop);
@@ -64,9 +70,13 @@ class CurrentUserStatus extends Component {
               История запросов пользователя: {currentUser.account.email}
             </Header>
             <Grid columns={2} stackable>
-              <Grid.Row >
+              <Grid.Row>
                 <Grid.Column width={2}>
-                  <StatusList user={user} currentDate={dateInput} />
+                  <StatusList
+                    user={user}
+                    currentDate={dateInput}
+                    currentUserId={currentUserId}
+                  />
                 </Grid.Column>
                 <Grid.Column width={14}>
                   <Segment>
@@ -112,7 +122,7 @@ class CurrentUserStatus extends Component {
                               return (
                                 <Table.Row key={field}>
                                   <Table.Cell width={3}>{field}</Table.Cell>
-                                  <Table.Cell className="field-wrap"  width={8}>
+                                  <Table.Cell className="field-wrap" width={8}>
                                     {currentUser.device[field]}
                                   </Table.Cell>
                                 </Table.Row>
@@ -249,7 +259,9 @@ class CurrentUserStatus extends Component {
                                   return (
                                     <Table.Row key={field}>
                                       <Table.Cell width={3}>{field}</Table.Cell>
-                                      <Table.Cell width={8}>{network[field]}</Table.Cell>
+                                      <Table.Cell width={8}>
+                                        {network[field]}
+                                      </Table.Cell>
                                     </Table.Row>
                                   );
                                 })
@@ -304,8 +316,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    userStatusDateInputChange: (e, { value }) =>
-      dispatch(userStatusDateInputChange(value))
+    userStatusDateInputChange: (e, { name, value }) =>
+      dispatch(userStatusDateInputChange(name,value))
     // userStatusFormInputChange: e =>
     //   dispatch(
     //     userStatusFormInputChange(

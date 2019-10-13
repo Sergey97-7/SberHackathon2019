@@ -27,20 +27,29 @@ class StatusList extends Component {
   };
   render() {
     const { activeItem } = this.state;
-    const { currentPage, changePage, pathname, user, currentDate, userStatusDateInputChange } = this.props;
+    const {
+      currentPage,
+      changePage,
+      pathname,
+      user,
+      currentDate,
+      userStatusDateInputChange,
+      currentUserId
+    } = this.props;
 
     return (
       <div className="sidebar">
         <Menu pointing vertical>
           {user.map((req, i) => {
-            console.log("currentDate", currentDate)
-            console.log("req", req.measurementTime)
+            console.log("currentDate", currentDate);
+            console.log("req", req.measurementTime);
             return (
               <Menu.Item
                 key={i}
                 color="blue"
                 name={getUnixDate(req.measurementTime)}
-                active={getUnixDate(req.measurementTime) === currentDate}
+                id={req.id}
+                active={req.id === currentUserId}
                 onClick={userStatusDateInputChange}
               >
                 {moment(getUnixDate(req.measurementTime)).format(
@@ -63,8 +72,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changePage: (e, { name }) => dispatch(changePage(name)),
-    userStatusDateInputChange: (e, { name }) =>
-      dispatch(userStatusDateInputChange(name))
+    userStatusDateInputChange: (e, { name, id }) =>
+      dispatch(userStatusDateInputChange(name, id, e.target, e))
   };
 };
 export default connect(

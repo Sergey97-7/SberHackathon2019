@@ -27,7 +27,10 @@ export function statusReducer(state = userStatusState, action) {
         }
       });
     case USER_STATUS_DATE_CHANGE:
-      return Object.assign({}, state, { dateInput: action.value });
+      return Object.assign({}, state, {
+        dateInput: action.value,
+        currentUserId: action.id
+      });
     default:
       return state;
   }
