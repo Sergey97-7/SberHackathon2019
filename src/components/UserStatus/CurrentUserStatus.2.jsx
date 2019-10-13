@@ -59,17 +59,21 @@ class CurrentUserStatus extends Component {
           <div className="current-user-status">
             {/* {currentUser = user.find(user => dateInput === user.timestamp)} */}
             <ScrollButton />
-            <Segment className="tts">
-              <Header block={true} as="h4">
-                История запросов пользователя: {currentUser.account.email}
-              </Header>
-              <StatusList user={user} currentDate={dateInput} />
-            </Segment>
-            <Segment>
-              <Header block={true} as="h4">
-                Статус устройства
-              </Header>
-              {/* <List className="text-left" divided selection>
+            {/* <Segment className="tts"> */}
+            <Header block={true} as="h4">
+              История запросов пользователя: {currentUser.account.email}
+            </Header>
+            <Grid columns={2} stackable>
+              <Grid.Row >
+                <Grid.Column width={2}>
+                  <StatusList user={user} currentDate={dateInput} />
+                </Grid.Column>
+                <Grid.Column width={14}>
+                  <Segment>
+                    <Header block={true} as="h4">
+                      Статус устройства
+                    </Header>
+                    {/* <List className="text-left" divided selection>
                 <List.Item>
                   <Label color="green" horizontal>
                     Пользователь
@@ -95,32 +99,34 @@ class CurrentUserStatus extends Component {
                   Параметр
                 </List.Item>
               </List> */}
-              <Table celled>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell>Поле</Table.HeaderCell>
-                    <Table.HeaderCell>Значение</Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {user.length !== 0
-                    ? Object.keys(currentUser.device).map(field => {
-                        return (
-                          <Table.Row key={field}>
-                            <Table.Cell>{field}</Table.Cell>
-                            <Table.Cell>{currentUser.device[field]}</Table.Cell>
-                          </Table.Row>
-                        );
-                      })
-                    : null}
-                </Table.Body>
-              </Table>
-            </Segment>
-            <Segment>
-              <Header block={true} as="h4">
-                Текущая сеть: {currentUser.connection.ssid}
-              </Header>
-              {/* <List className="text-left" divided selection>
+                    <Table celled>
+                      <Table.Header>
+                        <Table.Row>
+                          <Table.HeaderCell>Поле</Table.HeaderCell>
+                          <Table.HeaderCell>Значение</Table.HeaderCell>
+                        </Table.Row>
+                      </Table.Header>
+                      <Table.Body>
+                        {user.length !== 0
+                          ? Object.keys(currentUser.device).map(field => {
+                              return (
+                                <Table.Row key={field}>
+                                  <Table.Cell width={3}>{field}</Table.Cell>
+                                  <Table.Cell className="field-wrap"  width={8}>
+                                    {currentUser.device[field]}
+                                  </Table.Cell>
+                                </Table.Row>
+                              );
+                            })
+                          : null}
+                      </Table.Body>
+                    </Table>
+                  </Segment>
+                  <Segment>
+                    <Header block={true} as="h4">
+                      Текущая сеть: {currentUser.connection.ssid}
+                    </Header>
+                    {/* <List className="text-left" divided selection>
                 <List.Item>
                   <Label color="green" horizontal>
                     Пользователь
@@ -146,66 +152,66 @@ class CurrentUserStatus extends Component {
                   Параметр
                 </List.Item>
               </List> */}
-              <Table celled>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell>Поле</Table.HeaderCell>
-                    <Table.HeaderCell>Значение</Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {user.length !== 0
-                    ? Object.keys(currentUser.connection).map(field => {
-                        return (
-                          <Table.Row key={field}>
-                            <Table.Cell>{field}</Table.Cell>
-                            <Table.Cell>
-                              {currentUser.connection[field]}
-                            </Table.Cell>
-                          </Table.Row>
-                        );
-                      })
-                    : null}
-                </Table.Body>
-              </Table>
-            </Segment>
-            <Segment>
-              <Header block={true} as="h4">
-                Test Kit
-              </Header>
-              <Table celled>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell>Поле</Table.HeaderCell>
-                    <Table.HeaderCell>Значение</Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {user.length !== 0
-                    ? Object.keys(currentUser.testKit).map(field => {
-                        return (
-                          <Table.Row key={field}>
-                            <Table.Cell>{field}</Table.Cell>
-                            <Table.Cell>
-                              {currentUser.connection[field]}
-                            </Table.Cell>
-                          </Table.Row>
-                        );
-                      })
-                    : null}
-                </Table.Body>
-              </Table>
-            </Segment>
-            <Segment>
-              <Header block={true} as="h4">
-                Комментарий пользователя
-              </Header>
-              <p>{currentUser.comment}</p>
+                    <Table celled>
+                      <Table.Header>
+                        <Table.Row>
+                          <Table.HeaderCell>Поле</Table.HeaderCell>
+                          <Table.HeaderCell>Значение</Table.HeaderCell>
+                        </Table.Row>
+                      </Table.Header>
+                      <Table.Body>
+                        {user.length !== 0
+                          ? Object.keys(currentUser.connection).map(field => {
+                              return (
+                                <Table.Row key={field}>
+                                  <Table.Cell width={3}>{field}</Table.Cell>
+                                  <Table.Cell width={8}>
+                                    {currentUser.connection[field]}
+                                  </Table.Cell>
+                                </Table.Row>
+                              );
+                            })
+                          : null}
+                      </Table.Body>
+                    </Table>
+                  </Segment>
+                  <Segment>
+                    <Header block={true} as="h4">
+                      Test Kit
+                    </Header>
+                    <Table celled>
+                      <Table.Header>
+                        <Table.Row>
+                          <Table.HeaderCell>Поле</Table.HeaderCell>
+                          <Table.HeaderCell>Значение</Table.HeaderCell>
+                        </Table.Row>
+                      </Table.Header>
+                      <Table.Body>
+                        {user.length !== 0
+                          ? Object.keys(currentUser.testKit).map(field => {
+                              return (
+                                <Table.Row key={field}>
+                                  <Table.Cell width={3}>{field}</Table.Cell>
+                                  <Table.Cell width={8}>
+                                    {currentUser.connection[field]}
+                                  </Table.Cell>
+                                </Table.Row>
+                              );
+                            })
+                          : null}
+                      </Table.Body>
+                    </Table>
+                  </Segment>
+                  <Segment>
+                    <Header block={true} as="h4">
+                      Комментарий пользователя
+                    </Header>
+                    <p>{currentUser.comment}</p>
 
-              <Header block={true} as="h4">
-                Список сетей
-              </Header>
-              {/* <Table celled>
+                    <Header block={true} as="h4">
+                      Список сетей
+                    </Header>
+                    {/* <Table celled>
                 <Table.Header>
                   <Table.Row>
                     <Table.HeaderCell>Поле</Table.HeaderCell>
@@ -228,41 +234,41 @@ class CurrentUserStatus extends Component {
                 </Table.Body>
               </Table> */}
 
-              {currentUser.networks.map((network, i) => {
-                return (
-                  <Table celled key={i}>
-                    <Table.Header>
-                      <Table.Row>
-                        <Table.HeaderCell>Поле</Table.HeaderCell>
-                        <Table.HeaderCell>Значение</Table.HeaderCell>
-                      </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                      {user.length !== 0
-                        ? Object.keys(network).map(field => {
-                            return (
-                              <Table.Row key={field}>
-                                <Table.Cell>{field}</Table.Cell>
-                                <Table.Cell>{network[field]}</Table.Cell>
-                              </Table.Row>
-                            );
-                          })
-                        : null}
-                    </Table.Body>
-                  </Table>
-                );
-              })}
-              {/* {currentUser.networks.map(network => {
+                    {currentUser.networks.map((network, i) => {
+                      return (
+                        <Table celled key={i}>
+                          <Table.Header>
+                            <Table.Row>
+                              <Table.HeaderCell>Поле</Table.HeaderCell>
+                              <Table.HeaderCell>Значение</Table.HeaderCell>
+                            </Table.Row>
+                          </Table.Header>
+                          <Table.Body>
+                            {user.length !== 0
+                              ? Object.keys(network).map(field => {
+                                  return (
+                                    <Table.Row key={field}>
+                                      <Table.Cell width={3}>{field}</Table.Cell>
+                                      <Table.Cell width={8}>{network[field]}</Table.Cell>
+                                    </Table.Row>
+                                  );
+                                })
+                              : null}
+                          </Table.Body>
+                        </Table>
+                      );
+                    })}
+                    {/* {currentUser.networks.map(network => {
                 return (
                   
                 )
               }
               }))} */}
-              {/* Object.keys(network).map(field=> {
+                    {/* Object.keys(network).map(field=> {
                 return (
                   
                 ) */}
-              {/* <div className="grid-test">
+                    {/* <div className="grid-test">
                 {cards.map(card => {
                   return (
                     <NetWorkCard
@@ -277,7 +283,12 @@ class CurrentUserStatus extends Component {
                   );
                 })}
               </div> */}
-            </Segment>
+                  </Segment>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+
+            {/* </Segment> */}
           </div>
         )}
       </>
