@@ -38,8 +38,8 @@ class StatusList extends Component {
     } = this.props;
 
     return (
-      <div className="sidebar">
-        <Menu pointing vertical>
+      <div>
+        <Menu pointing vertical className="status-list">
           {user.map((req, i) => {
             console.log("currentDate", currentDate);
             console.log("req", req.measurementTime);

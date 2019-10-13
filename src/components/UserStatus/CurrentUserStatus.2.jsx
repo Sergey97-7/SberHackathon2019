@@ -27,7 +27,9 @@ class CurrentUserStatus extends Component {
   getDateSelectOptions = () => {
     const { user } = this.props.status;
     return user.map((req, i) => {
-      console.log("req", req);
+      console.log("req", moment(getUnixDate(req.measurementTime)).format(
+        "DD-MM-YYYY, HH:mm:ss"
+      ));
       return {
         key: i,
         name:  getUnixDate(req.measurementTime),
@@ -71,14 +73,14 @@ class CurrentUserStatus extends Component {
             </Header>
             <Grid columns={2} stackable>
               <Grid.Row>
-                <Grid.Column width={2}>
+                <Grid.Column width={3} >
                   <StatusList
                     user={user}
                     currentDate={dateInput}
                     currentUserId={currentUserId}
                   />
                 </Grid.Column>
-                <Grid.Column width={14}>
+                <Grid.Column width={13}>
                   <Segment>
                     <Header block={true} as="h4">
                       Статус устройства

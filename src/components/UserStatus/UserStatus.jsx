@@ -45,33 +45,30 @@ class UserStatus extends Component {
       periodFrom.trim() !== "" &&
       periodTo.trim() !== ""
     ) {
+      // if(email.)
       // this.props.userStatusFetch("/rest/user/status", "POST", body);
-      this.props
-        .userStatusFetch("/rest/measurements")
-        .then(data => {
-          console.log("!@3123434534", data);
-          if (this.props.statusError.hasErrored) {
-            this.props.changeModalAlert(
-              true,
-              `${
-                this.props.statusError.status
-                  ? this.props.statusError.status
-                  : ""
-              }: ${this.props.statusError.msg.toString()}`,
-              2000,
-              negativeModal
-            );
-          } else if (data.status === 204) {
-            this.props.changeModalAlert(
-              true,
-              "Статусы не найдены",
-              2000,
-              negativeModal
-            );
-          } else {
-            this.props.history.push("/status/current-user");
-          }
-        });
+      this.props.userStatusFetch("/rest/measurements").then(data => {
+        console.log("!@3123434534", data);
+        if (this.props.statusError.hasErrored) {
+          this.props.changeModalAlert(
+            true,
+            `${
+              this.props.statusError.status ? this.props.statusError.status : ""
+            }: ${this.props.statusError.msg.toString()}`,
+            2000,
+            negativeModal
+          );
+        } else if (data.status === 204) {
+          this.props.changeModalAlert(
+            true,
+            "Статусы не найдены",
+            2000,
+            negativeModal
+          );
+        } else {
+          this.props.history.push("/status/current-user");
+        }
+      });
     } else {
       this.props.changeModalAlert(
         true,
