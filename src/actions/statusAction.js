@@ -59,18 +59,21 @@ export function userStatusDateInputChange(value, id, e, f) {
 
 export function userSetStatus(user) {
   return dispatch => {
-    user.sort(
-      (a, b) => getUnixDate(b.measurementTime) - getUnixDate(a.measurementTime)
-    );
-    // console.log("DATE:", getFormattedDate(user[0].timestamp));
-    // console.log("DATE@: ", sorted[0].timestamp);
-    console.log("TIMETEST: ", user[0].id);
-    dispatch(
-      userStatusDateInputChange(
-        getUnixDate(user[0].measurementTime),
-        user[0].id
-      )
-    );
-    dispatch(userStatusSuccessFetch(user));
+    if (user.length !== 0) {
+      user.sort(
+        (a, b) =>
+          getUnixDate(b.measurementTime) - getUnixDate(a.measurementTime)
+      );
+      // console.log("DATE:", getFormattedDate(user[0].timestamp));
+      // console.log("DATE@: ", sorted[0].timestamp);
+      console.log("TIMETEST: ", user[0].id);
+      dispatch(
+        userStatusDateInputChange(
+          getUnixDate(user[0].measurementTime),
+          user[0].id
+        )
+      );
+      dispatch(userStatusSuccessFetch(user));
+    }
   };
 }

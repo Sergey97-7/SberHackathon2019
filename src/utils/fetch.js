@@ -28,6 +28,8 @@ export const fetchDataRedux = async (
     });
     dispatch(load(false));
     let data = await res.json();
+    console.log("FETCH", res);
+    console.log("STATUS", data)
     if (res.status >=400) {
       console.log("STATUS", res)
       // dispatch(error(true, data.status || res.statusText, res.status || data.error));
@@ -35,14 +37,16 @@ export const fetchDataRedux = async (
       res.statusText !== "" && typeof res.statusText !== "undefined" ? res.statusText : data.status));
     }
     else if (
-      (res.status === 200 || res.status === 204)
+      (res.status === 200)
     ) {
+      // console.log("success", data.value)
       dispatch(success(data.value));
     } else {
       dispatch(error(true, data.error, res.status));
     }
+    console.log("success", data.value)
     console.log("FETCH", res);
-    return { data, status: res.status };
+    return { value: data.value, status: res.status };
   } catch (e) {
     console.log("erROR: ",  e.msg);
     console.log("erROR: ", typeof e.msg);

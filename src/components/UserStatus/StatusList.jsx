@@ -5,7 +5,7 @@ import { Menu } from "semantic-ui-react";
 import { changePage } from "../../actions/app";
 import { Link } from "react-router-dom";
 import { userStatusDateInputChange } from "../../actions/statusAction";
-import { getUnixDate } from "../../utils/tools";
+import { getUnixDate, getDataFromBack } from "../../utils/tools";
 import moment from "moment";
 class StatusList extends Component {
   state = { activeItem: "administration" };
@@ -52,9 +52,12 @@ class StatusList extends Component {
                 active={req.id === currentUserId}
                 onClick={userStatusDateInputChange}
               >
-                {moment(getUnixDate(req.measurementTime)).format(
+                {/* {getDataFromBack(req.measurementTime)} */}
+                {/* {console.error("AAAA", getUnixDate(req.measurementTime))} */}
+                {/* {moment(req.measurementTime, "DD-MM-YYYY hh:mm:ss").format(
                   "DD-MM-YYYY, HH:mm:ss"
-                )}
+                )} */}
+                { moment.utc(req.measurementTime, "DD-MM-YYYY HH:mm:ss").local().format("DD-MM-YYYY, HH:mm:ss")}
               </Menu.Item>
             );
           })}

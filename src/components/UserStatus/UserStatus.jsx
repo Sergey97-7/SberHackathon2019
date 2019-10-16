@@ -58,12 +58,12 @@ class UserStatus extends Component {
             2000,
             negativeModal
           );
-        } else if (data.status === 204) {
+        } else if (data.status === 204 || data.value.length === 0) {
           this.props.changeModalAlert(
             true,
             "Статусы не найдены",
             2000,
-            negativeModal
+            warningModal
           );
         } else {
           this.props.history.push("/status/current-user");
