@@ -64,9 +64,10 @@ class CurrentUserStatus extends Component {
         ) : isLoading || user === null ? (
           <div>Загрузка...</div>
         ) : (
+          <> <ScrollButton />
           <div className="current-user-status">
             {/* {currentUser = user.find(user => dateInput === user.timestamp)} */}
-            <ScrollButton />
+            
             {/* <Segment className="tts"> */}
             <Header block={true} as="h4">
               История запросов пользователя: {currentUser.account.email}
@@ -304,6 +305,7 @@ class CurrentUserStatus extends Component {
 
             {/* </Segment> */}
           </div>
+          </>
         )}
       </>
       // }

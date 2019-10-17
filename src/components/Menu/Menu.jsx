@@ -19,7 +19,7 @@ class Sidebar extends Component {
     return (
       <div className="menu">
         <Menu pointing>
-          <Menu.Item
+          {/* <Menu.Item
             color="blue"
             name="administration"
             as={Link}
@@ -29,7 +29,7 @@ class Sidebar extends Component {
             onClick={changePage}
           >
             Администрирование
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item
             color="blue"
             name="status"

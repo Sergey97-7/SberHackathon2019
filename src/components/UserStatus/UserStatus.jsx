@@ -47,7 +47,7 @@ class UserStatus extends Component {
     ) {
       // if(email.)
       // this.props.userStatusFetch("/rest/user/status", "POST", body);
-      this.props.userStatusFetch("/rest/measurements").then(data => {
+      this.props.userStatusFetch("/rest/measurements", "POST", body).then(data => {
         console.log("!@3123434534", data);
         if (this.props.statusError.hasErrored) {
           this.props.changeModalAlert(

@@ -34,7 +34,7 @@ class Main extends Component {
             />
             <Menu pathname={this.props.location.pathname} />
             <Segment className="main-content-segment">
-              <Route exact path="/administration" component={Administration} />
+              {/* <Route exact path="/administration" component={Administration} />
               <Route
                 exact
                 path="/administration/edit/user/:user"
@@ -44,7 +44,7 @@ class Main extends Component {
                 exact
                 path="/administration/create"
                 component={AdministrationCreate}
-              />
+              /> */}
               <Route exact path="/status" component={UserStatus} />
               <Route
                 exact
