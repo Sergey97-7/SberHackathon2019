@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { Button, Checkbox, Form, Header, Input } from "semantic-ui-react";
-// import { withRouter } from 'react-router-dom'
-// import "./Main.scss";
+import { Button,  Form, Header, Input } from "semantic-ui-react";
 import { createCurrentUser } from "../../actions/userActions";
-import { fetchDataPost } from "../../utils/fetch";
 class AdministrationCreate extends Component {
   state = {
     name: "",
@@ -62,8 +58,7 @@ class AdministrationCreate extends Component {
     this.setState({ role: value });
   };
   render() {
-    const { roleAlias, match, user } = this.props;
-    console.log("this.react.state: ", this.state);
+    const { roleAlias} = this.props;
     const { pwd, pwdConfirm, role, name, email } = this.state;
     const options = Object.keys(roleAlias).map(opt => {
       return {
@@ -72,10 +67,6 @@ class AdministrationCreate extends Component {
         text: roleAlias[opt]
       };
     });
-    // const options = [
-    //   { key: "m", text: "Администратор", value: "admin" },
-    //   { key: "f", text: "Пользователь", value: "user" }
-    // ];
     return (
       <Form className="text-left">
         <Header floated={"left"} as="h4">
@@ -125,12 +116,9 @@ class AdministrationCreate extends Component {
     );
   }
 }
-// export default AdministrationCreate;
+
 const mapStateToProps = state => {
-  console.log("state", state);
   return {
-    // admin: state.administration,
-    // user: state.user,
     roleAlias: state.app.appConfig.roles
   };
 };

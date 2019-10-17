@@ -3,11 +3,11 @@ import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import "./Main.scss";
 import { Segment } from "semantic-ui-react";
-import Administration from "../Administration";
-import AdministrationEdit from "../Administration/AdminitrationEdit";
-import AdministrationCreate from "../Administration/AdministrationCreate";
+// import Administration from "../Administration";
+// import AdministrationEdit from "../Administration/AdminitrationEdit";
+// import AdministrationCreate from "../Administration/AdministrationCreate";
 import UserStatus from "../UserStatus/UserStatus";
-import CurrentUserStatus from "../UserStatus/CurrentUserStatus.2";
+import CurrentUserStatus from "../UserStatus/CurrentUserStatus";
 import { userListFetch } from "../../actions/userActions";
 import ModalAlert from "../ModalAlert";
 import Menu from "../Menu";
@@ -21,7 +21,6 @@ class Main extends Component {
     const { importance, isOpen, msg, timer } = this.props.modal;
     return (
       <>
-        {/*TODO CHANGE */}
         <Redirect to="/status" />
         {this.props.config !== null && (
           <Segment>
@@ -59,7 +58,6 @@ class Main extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log("state", state);
   return {
     admin: state.administration,
     config: state.app.appConfig,

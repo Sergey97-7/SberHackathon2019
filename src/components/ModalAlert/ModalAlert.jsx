@@ -1,7 +1,5 @@
 import React, { PureComponent, Component } from "react";
 import { Message } from "semantic-ui-react";
-import { connect } from "react-redux";
-// import { changeModalAlert } from "../../actions/modalAction";
 import "./ModalAlert.scss";
 import {
   infoModal,
@@ -65,27 +63,15 @@ class ModalAlert extends PureComponent {
     );
   }
 }
-// export default ModalAlert;
 const mapStateToProps = state => {
   console.log("state", state);
   return {
-    // admin: state.administration,
-    // user: state.user,
-    // roleAlias: state.app,
-    // statusForm: state.statusForm
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     changeModalAlert2: (bool, msg, timer, importance) =>
       dispatch(changeModalAlert(bool, msg, timer, importance))
-    //   userStatusFormInputChange: e =>
-    //     dispatch(
-    //       userStatusFormInputChange(
-    //         e.target.getAttribute(["name"]),
-    //         e.target.value
-    //       )
-    //     )
   };
 };
 // export default connect(

@@ -5,16 +5,8 @@ import { Menu } from "semantic-ui-react";
 import { changePage } from "../../actions/app";
 import { Link } from "react-router-dom";
 class Sidebar extends Component {
-  state = { activeItem: "administration" };
-  menuItemHandler = (e, name) => {
-    console.log("name::::1", e);
-    console.log("name::::2", name);
-    changePage(e, name);
-    // this.setState({ activeItem: name })
-  };
   render() {
-    const { activeItem } = this.state;
-    const { currentPage, changePage, pathname } = this.props;
+    const { changePage, pathname } = this.props;
 
     return (
       <div className="menu">
@@ -37,7 +29,6 @@ class Sidebar extends Component {
             link={true}
             active={pathname.startsWith("/status")}
             to={"/status"}
-            // onClick={changePage}
             onClick={changePage}
           >
             Статусы устройств
@@ -48,7 +39,6 @@ class Sidebar extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log("state", state);
   return {
     currentPage: state.app.currentPage
   };

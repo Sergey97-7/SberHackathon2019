@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { Button, Checkbox, Form, Header, Dropdown } from "semantic-ui-react";
-// import { withRouter } from 'react-router-dom'
-// import "./Main.scss";
+import { Button, Form, Header} from "semantic-ui-react";
 import { changeCurrentUser } from "../../actions/userActions";
 class AdministrationEdit extends Component {
   currentUser = this.props.user.userList.find(
@@ -52,7 +49,6 @@ class AdministrationEdit extends Component {
         if (res.value.hasOwnProperty("id")) {
           this.props.changeCurrentUser(res.value);
         } else {
-          console.log("adminEditResponse: ", res);
         }
       };
       fetchDataPut();
@@ -60,20 +56,9 @@ class AdministrationEdit extends Component {
       console.log("Заполните хотя бы 1 поле!");
     }
   };
-  // pwdConfirmhandler = e => {
-  //   this.setState({pwdConfirm: e.target.value})
-  // }
-  // roleHandler = e => {
-  //   this.setState({role: e.target.value})
-  // }
   render() {
     const { roleAlias, match, user } = this.props;
     const { pwd, pwdConfirm, role, name } = this.state;
-    console.log("this", this.props.match.params.user);
-    // const options = [
-    //   { key: "administrator", text: "Администратор", value: "administrator" },
-    //   { key: "user", text: "Пользователь", value: "user" }
-    // ];
     const options = Object.keys(roleAlias).map(opt => {
       return {
         key: opt,
@@ -84,9 +69,6 @@ class AdministrationEdit extends Component {
     const currentUser = user.userList.find(
       user => user.email === match.params.user
     );
-    console.log("123: ", currentUser.role);
-    console.log("STATE", this.state);
-    // console.log("123: ", user.userList.find(user =>))
     return (
       <Form>
         <Header floated={"left"} as="h4">
@@ -122,7 +104,6 @@ class AdministrationEdit extends Component {
         <Form.Select
           onChange={this.roleHandler}
           className="text-left"
-          // defaultValue={String(this.currentUser.role)}
           value={role}
           fluid
           label="Роль: "
@@ -135,9 +116,8 @@ class AdministrationEdit extends Component {
     );
   }
 }
-// export default AdministrationEdit;
+
 const mapStateToProps = state => {
-  console.log("state", state);
   return {
     admin: state.administration,
     user: state.user,

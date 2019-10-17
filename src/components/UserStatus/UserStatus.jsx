@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { Button, Form, Header } from "semantic-ui-react";
 import "./UserStatus.scss";
@@ -9,26 +8,8 @@ import {
 } from "../../actions/statusAction";
 import moment from "moment";
 import { changeModalAlert } from "../../actions/modalAction";
-import {
-  infoModal,
-  warningModal,
-  successModal,
-  negativeModal
-} from "../../constants/constants";
+import { warningModal, negativeModal } from "../../constants/constants";
 class UserStatus extends Component {
-  getFormattedDate = date => {
-    return moment(date).format("YYYY-MM-DDTHH:mm");
-  };
-  // initial state date
-  state = {
-    email: "",
-    periodFrom: this.getFormattedDate(new Date()),
-    periodTo: this.getFormattedDate(new Date())
-  };
-
-  inputHandler = e => {
-    this.setState({ [e.target.getAttribute(["name"])]: e.target.value });
-  };
   btnUserStatusHandler = e => {
     const { email, periodFrom, periodTo } = this.props.statusForm;
     let body = {
@@ -45,10 +26,8 @@ class UserStatus extends Component {
       periodFrom.trim() !== "" &&
       periodTo.trim() !== ""
     ) {
-      // if(email.)
       // this.props.userStatusFetch("/rest/user/status", "POST", body);
-      this.props.userStatusFetch("/rest/measurements", "POST", body).then(data => {
-        console.log("!@3123434534", data);
+      this.props.userStatusFetch("/rest/measurements").then(data => {
         if (this.props.statusError.hasErrored) {
           this.props.changeModalAlert(
             true,
@@ -81,7 +60,6 @@ class UserStatus extends Component {
   render() {
     const { email, periodFrom, periodTo } = this.props.statusForm;
     const { userStatusFormInputChange } = this.props;
-
     return (
       <div className="status">
         <Header className="text-left" size="medium">
@@ -117,9 +95,8 @@ class UserStatus extends Component {
     );
   }
 }
-// export default UserStatus;
+
 const mapStateToProps = state => {
-  console.log("state", state);
   return {
     admin: state.administration,
     user: state.user,

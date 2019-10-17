@@ -1,48 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import "./Sidebar.scss";
 import { Menu } from "semantic-ui-react";
 import { changePage } from "../../actions/app";
-import { Link } from "react-router-dom";
 import { userStatusDateInputChange } from "../../actions/statusAction";
-import { getUnixDate, getDataFromBack } from "../../utils/tools";
+import { getUnixDate } from "../../utils/tools";
 import moment from "moment";
 class StatusList extends Component {
-  state = { activeItem: "administration" };
-  menuItemHandler = (e, name) => {
-    console.log("name::::1", e);
-    console.log("name::::2", name);
-    changePage(e, name);
-    // this.setState({ activeItem: name })
-
-    // user.map((req, i) => {
-    //   return {
-    //     key: i,
-    //     value: getUnixDate(req.measurementTime),
-    //     text: moment(getUnixDate(req.measurementTime)).format(
-    //       "DD-MM-YYYY, HH:mm:ss"
-    //     )
-    //   };
-    // });
-  };
   render() {
-    const { activeItem } = this.state;
-    const {
-      currentPage,
-      changePage,
-      pathname,
-      user,
-      currentDate,
-      userStatusDateInputChange,
-      currentUserId
-    } = this.props;
+    const { user, userStatusDateInputChange, currentUserId } = this.props;
 
     return (
       <div>
         <Menu pointing vertical className="status-list">
           {user.map((req, i) => {
-            console.log("currentDate", currentDate);
-            console.log("req", req.measurementTime);
             return (
               <Menu.Item
                 key={i}
@@ -52,12 +22,10 @@ class StatusList extends Component {
                 active={req.id === currentUserId}
                 onClick={userStatusDateInputChange}
               >
-                {/* {getDataFromBack(req.measurementTime)} */}
-                {/* {console.error("AAAA", getUnixDate(req.measurementTime))} */}
-                {/* {moment(req.measurementTime, "DD-MM-YYYY hh:mm:ss").format(
-                  "DD-MM-YYYY, HH:mm:ss"
-                )} */}
-                { moment.utc(req.measurementTime, "DD-MM-YYYY HH:mm:ss").local().format("DD-MM-YYYY, HH:mm:ss")}
+                {moment
+                  .utc(req.measurementTime, "DD-MM-YYYY HH:mm:ss")
+                  .local()
+                  .format("DD-MM-YYYY, HH:mm:ss")}
               </Menu.Item>
             );
           })}
@@ -67,7 +35,6 @@ class StatusList extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log("state", state);
   return {
     currentPage: state.app.currentPage
   };

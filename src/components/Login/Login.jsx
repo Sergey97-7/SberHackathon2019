@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import "./Login.scss";
 import {
   Button,
   Form,
   Grid,
   Header,
-  Message,
   Segment,
   Container
 } from "semantic-ui-react";

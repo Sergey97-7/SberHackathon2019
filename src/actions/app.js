@@ -6,7 +6,6 @@ export function changePage(currentPage) {
   };
 }
 export function getAppConfig(appConfig) {
-  console.log("config", appConfig);
   return {
     type: GET_CONFIG,
     appConfig

@@ -21,7 +21,6 @@ export default class ScrollButton extends Component {
     }
   };
   render() {
-    console.log("this.state.scrooll", this.state.visible);
     return this.state.visible ? (
       <div className="scrollup" onClick={this.scrollToTop}></div>
     ) : null;
