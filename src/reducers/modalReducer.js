@@ -6,7 +6,7 @@ export function modalReducer(state = modalAlertState, action) {
       return Object.assign({}, state, {
         isOpen: action.isOpen,
         msg: action.msg,
-        timer: action.timer,
+        time: action.time,
         importance: action.importance
       });
     default:

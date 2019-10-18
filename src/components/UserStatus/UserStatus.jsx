@@ -8,8 +8,20 @@ import {
 } from "../../actions/statusAction";
 import moment from "moment";
 import { changeModalAlert } from "../../actions/modalAction";
-import { warningModal, negativeModal } from "../../constants/constants";
+import {
+  warningModal,
+  negativeModal,
+  infoModal
+} from "../../constants/constants";
 class UserStatus extends Component {
+  timer = null;
+  setTimer = time => {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(
+      () => this.props.changeModalAlert(false, "", 0, infoModal),
+      time
+    );
+  };
   btnUserStatusHandler = e => {
     const { email, periodFrom, periodTo } = this.props.statusForm;
     let body = {
@@ -35,8 +47,10 @@ class UserStatus extends Component {
               this.props.statusError.status ? this.props.statusError.status : ""
             }: ${this.props.statusError.msg.toString()}`,
             2000,
-            negativeModal
+            negativeModal,
+            this.props.modal.timer
           );
+          this.setTimer(2000)
         } else if (data.status === 204 || data.value.length === 0) {
           this.props.changeModalAlert(
             true,
@@ -44,6 +58,7 @@ class UserStatus extends Component {
             2000,
             warningModal
           );
+          this.setTimer(2000)
         } else {
           this.props.history.push("/status/current-user");
         }
@@ -55,6 +70,7 @@ class UserStatus extends Component {
         4000,
         warningModal
       );
+      this.setTimer(2000)
     }
   };
   render() {
@@ -97,12 +113,14 @@ class UserStatus extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log("state", state);
   return {
     admin: state.administration,
     user: state.user,
     roleAlias: state.app.appConfig.roles,
     statusForm: state.statusForm,
-    statusError: state.status.error
+    statusError: state.status.error,
+    modal: state.modal
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -116,8 +134,8 @@ const mapDispatchToProps = dispatch => {
           e.target.value
         )
       ),
-    changeModalAlert: (bool, msg, timer, importance) =>
-      dispatch(changeModalAlert(bool, msg, timer, importance))
+    changeModalAlert: (bool, msg, time, importance) =>
+      dispatch(changeModalAlert(bool, msg, time, importance))
   };
 };
 export default connect(

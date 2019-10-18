@@ -18,7 +18,7 @@ class Main extends Component {
     this.props.userListFetch("/rest/users");
   }
   render() {
-    const { importance, isOpen, msg, timer } = this.props.modal;
+    const { importance, isOpen, msg, time } = this.props.modal;
     return (
       <>
         <Redirect to="/status" />
@@ -29,7 +29,7 @@ class Main extends Component {
               msg={msg}
               importance={importance}
               changeModalAlert={this.props.changeModalAlert}
-              timer={timer}
+              time={time}
             />
             <Menu pathname={this.props.location.pathname} />
             <Segment className="main-content-segment">
@@ -67,8 +67,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     userListFetch: url => dispatch(userListFetch(url)),
-    changeModalAlert: (bool, msg, timer, importance) =>
-      dispatch(changeModalAlert(bool, msg, timer, importance))
+    changeModalAlert: (bool, msg, time, importance) =>
+      dispatch(changeModalAlert(bool, msg, time, importance))
   };
 };
 export default connect(

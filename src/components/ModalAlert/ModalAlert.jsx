@@ -8,43 +8,33 @@ import {
   negativeModal
 } from "../../constants/constants";
 import { changeModalAlert } from "../../actions/modalAction";
-class ModalAlert extends PureComponent {
+class ModalAlert extends Component {
   state = {
-    timer: null
+    timer: null,
+    isOpen: false
   };
   timer = null;
-  // componentDidMount() {
-  //   clearTimeout(this.timer);
-  //   console.log("TIMER", this.props.timer);
-  //   this.timer = setTimeout(
-  //     () => {
-  //       console.log("changeModalAlert2", this.props.timer);
-  //       this.props.changeModalAlert(false, "", 0, "")
-  //     } ,
-  //     this.props.timer
-  //   );
-  // }
-  componentDidUpdate() {
-    clearTimeout(this.timer);
+  componentDidMount() {
+    // clearTimeout(this.timer);
     console.log("TIMER", this.props.timer);
-    this.timer = setTimeout(() => {
-      console.log("changeModalAlert2", this.props.timer);
-      this.props.changeModalAlert(false, "", 0, "");
-    }, 2000);
+    // this.timer = setTimeout(() => {
+    //   console.log("changeModalAlert2", this.props.timer);
+    //   this.props.changeModalAlert(false, "", 0, "");
+    // }, 2000);
   }
   // componentDidUpdate() {
   //   //TODO infinite call
   //   console.log("INFINITE UPDATE", this.props);
-  //   clearTimeout(this.timer);
+  //   // clearTimeout(this.timer);
   //   this.timer = setTimeout(
   //     () => this.props.changeModalAlert(false, "", 0, ""),
   //     this.props.timer
   //   );
   // }
-  componentWillUnmount() {
-    clearTimeout(this.timer);
-    this.props.changeModalAlert(false, "", 0, "");
-  }
+  // componentWillUnmount() {
+  //   clearTimeout(this.timer);
+  //   this.props.changeModalAlert(false, "", 0, "");
+  // }
   render() {
     const { isOpen, msg, importance } = this.props;
     return (
@@ -70,8 +60,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    changeModalAlert2: (bool, msg, timer, importance) =>
-      dispatch(changeModalAlert(bool, msg, timer, importance))
+    changeModalAlert2: (bool, msg, time, importance) =>
+      dispatch(changeModalAlert(bool, msg, time, importance))
   };
 };
 // export default connect(

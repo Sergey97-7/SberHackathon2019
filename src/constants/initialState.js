@@ -30,6 +30,6 @@ export const statusForm = {
 export const modalAlertState = {
   isOpen: false,
   msg: "",
-  timer: null,
+  time: null,
   importance: "info"
 };

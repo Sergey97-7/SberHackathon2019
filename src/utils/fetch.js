@@ -21,13 +21,24 @@ export const fetchDataRedux = async (
     });
     dispatch(load(false));
     let data = await res.json();
-    if (res.status >=400) {
-      dispatch(error(true, res.statusText !== "" && typeof res.statusText !== "undefined" ? res.statusText : data.status, 
-      res.statusText !== "" && typeof res.statusText !== "undefined" ? res.statusText : data.status));
-    }
-    else if (
-      (res.status === 200)
-    ) {
+    if (res.status >= 400) {
+      let errorMsg = "Unknown error";
+      let errorStatus = "";
+      if (typeof data.error !== "undefined" && data.error !== "") {
+        errorMsg = data.error;
+      } else if (
+        typeof res.statusText !== "undefined" &&
+        res.statusText !== ""
+      ) {
+        errorMsg = res.statusText;
+      }
+      if (typeof data.status !== "undefined" && data.status !== "") {
+        errorStatus = data.status;
+      } else if (typeof res.status !== "undefined" && res.status !== "") {
+        errorStatus = res.status;
+      }
+      dispatch(error(true, errorMsg, errorStatus));
+    } else if (res.status === 200) {
       dispatch(success(data.value));
     } else {
       dispatch(error(true, data.error, res.status));
@@ -36,7 +47,7 @@ export const fetchDataRedux = async (
   } catch (e) {
     dispatch(error(true, e));
     dispatch(load(false));
-    return { error: e};
+    return { error: e };
   }
 };
 //TODO FIX !
