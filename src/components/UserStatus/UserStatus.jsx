@@ -38,6 +38,8 @@ class UserStatus extends Component {
       periodFrom.trim() !== "" &&
       periodTo.trim() !== ""
     ) {
+      const pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+      if(pattern.test(email)) {
       // this.props.userStatusFetch("/rest/user/status", "POST", body);
       this.props.userStatusFetch("/rest/measurements").then(data => {
         if (this.props.statusError.hasErrored) {
@@ -46,7 +48,7 @@ class UserStatus extends Component {
             `${
               this.props.statusError.status ? this.props.statusError.status : ""
             }: ${this.props.statusError.msg.toString()}`,
-            2000,
+            0,
             negativeModal,
             this.props.modal.timer
           );
@@ -55,7 +57,7 @@ class UserStatus extends Component {
           this.props.changeModalAlert(
             true,
             "Статусы не найдены",
-            2000,
+            0,
             warningModal
           );
           this.setTimer(2000)
@@ -66,8 +68,17 @@ class UserStatus extends Component {
     } else {
       this.props.changeModalAlert(
         true,
+        "Некорректный email!",
+        0,
+        warningModal
+      );
+      this.setTimer(2000)
+    }
+    } else {
+      this.props.changeModalAlert(
+        true,
         "Заполните все поля!",
-        4000,
+        0,
         warningModal
       );
       this.setTimer(2000)

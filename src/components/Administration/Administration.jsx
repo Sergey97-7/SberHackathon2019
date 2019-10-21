@@ -21,7 +21,7 @@ class Administration extends Component {
         <Header className="text-left" size="medium">
           Пользователи
         </Header>
-        <div className="test">
+        <div className="administration-search">
           <Input
             value={admin.userSearchInputValue}
             onChange={changeAdminSearchInput}

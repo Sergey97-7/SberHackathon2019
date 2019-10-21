@@ -8,18 +8,27 @@ import Main from "./components/Main";
 import { fetchData } from "./utils/fetch";
 import { getAppConfig } from "./actions/app";
 import { appConfigUrl } from "./constants/constants";
+import ModalAlert from "./components/ModalAlert";
 class App extends Component {
+  state = {
+    error: null
+  };
   componentDidMount() {
-    fetchData(appConfigUrl).then(data => store.dispatch(getAppConfig(data)));
+    fetchData(appConfigUrl)
+      .then(data => store.dispatch(getAppConfig(data)))
+      .catch(error => this.setState({ error }));
   }
   render() {
     return (
       <Provider store={store}>
         <Router>
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route path="/" component={Main} />
-          </Switch>
+          {this.state.error === null ? (
+            
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <Route path="/" component={Main} />
+            </Switch>
+          ) : <div>Ошибка в конфигурационном файле</div>}
         </Router>
       </Provider>
     );
