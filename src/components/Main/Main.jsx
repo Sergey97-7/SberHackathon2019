@@ -3,9 +3,9 @@ import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import "./Main.scss";
 import { Segment } from "semantic-ui-react";
-// import Administration from "../Administration";
-// import AdministrationEdit from "../Administration/AdminitrationEdit";
-// import AdministrationCreate from "../Administration/AdministrationCreate";
+import Administration from "../Administration";
+import AdministrationEdit from "../Administration/AdminitrationEdit";
+import AdministrationCreate from "../Administration/AdministrationCreate";
 import UserStatus from "../UserStatus/UserStatus";
 import CurrentUserStatus from "../UserStatus/CurrentUserStatus";
 import { userListFetch } from "../../actions/userActions";
@@ -21,7 +21,7 @@ class Main extends Component {
     const { importance, isOpen, msg, time } = this.props.modal;
     return (
       <>
-        <Redirect to="/status" />
+        <Redirect to="/administration" />
         {this.props.config !== null && (
           <Segment>
             <ModalAlert
@@ -33,7 +33,7 @@ class Main extends Component {
             />
             <Menu pathname={this.props.location.pathname} />
             <Segment className="main-content-segment">
-              {/* <Route exact path="/administration" component={Administration} />
+              <Route exact path="/administration" component={Administration} />
               <Route
                 exact
                 path="/administration/edit/user/:user"
@@ -43,7 +43,7 @@ class Main extends Component {
                 exact
                 path="/administration/create"
                 component={AdministrationCreate}
-              /> */}
+              />
               <Route exact path="/status" component={UserStatus} />
               <Route
                 exact

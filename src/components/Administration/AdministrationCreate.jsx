@@ -19,6 +19,10 @@ class AdministrationCreate extends Component {
       pwd.trim() !== "" &&
       pwdConfirm.trim() !== ""
     ) {
+      const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (pattern.test(String(email).toLowerCase())) {
+
+      
       if (pwd.trim() === pwdConfirm.trim()) {
         body = {
           name: name.trim(),
@@ -45,7 +49,10 @@ class AdministrationCreate extends Component {
         };
         fetchDataPost();
       } else {
-        console.log("Пароли не совпадают!");
+        console.log("Пароли не совпадают!")
+      }
+      } else {
+        console.log("Введите корректный email!");
       }
     } else {
       console.log("Заполните все поля!");
@@ -101,16 +108,16 @@ class AdministrationCreate extends Component {
           />
         </Form.Field>
 
-        <Form.Select
+        {/* <Form.Select
           className="text-left"
           fluid
           label="Роль: "
           options={options}
           value={role}
           onChange={this.roleHandler}
-        />
+        /> */}
         <Button onClick={this.createUser} type="submit">
-          Сохранить
+          Добавить
         </Button>
       </Form>
     );

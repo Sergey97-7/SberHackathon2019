@@ -17,7 +17,7 @@ class StatusList extends Component {
               <Menu.Item
                 key={i}
                 color="blue"
-                name={getUnixDate(req.measurementTime)}
+                name={String(getUnixDate(req.measurementTime))}
                 id={req.id}
                 active={req.id === currentUserId}
                 onClick={userStatusDateInputChange}
@@ -43,7 +43,7 @@ const mapDispatchToProps = dispatch => {
   return {
     changePage: (e, { name }) => dispatch(changePage(name)),
     userStatusDateInputChange: (e, { name, id }) =>
-      dispatch(userStatusDateInputChange(name, id, e.target, e))
+      dispatch(userStatusDateInputChange(+name, id))
   };
 };
 export default connect(

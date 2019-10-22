@@ -101,14 +101,14 @@ class AdministrationEdit extends Component {
           label="Повтор пароля: "
           type="password"
         />
-        <Form.Select
+        {/* <Form.Select
           onChange={this.roleHandler}
           className="text-left"
           value={role}
           fluid
           label="Роль: "
           options={options}
-        />
+        /> */}
         <Button onClick={this.changeUserParams} type="submit">
           Сохранить
         </Button>

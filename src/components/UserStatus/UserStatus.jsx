@@ -38,50 +38,58 @@ class UserStatus extends Component {
       periodFrom.trim() !== "" &&
       periodTo.trim() !== ""
     ) {
-      const pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-      if(pattern.test(email)) {
-      // this.props.userStatusFetch("/rest/user/status", "POST", body);
-      this.props.userStatusFetch("/rest/measurements").then(data => {
-        if (this.props.statusError.hasErrored) {
-          this.props.changeModalAlert(
-            true,
-            `${
-              this.props.statusError.status ? this.props.statusError.status : ""
-            }: ${this.props.statusError.msg.toString()}`,
-            0,
-            negativeModal,
-            this.props.modal.timer
-          );
-          this.setTimer(2000)
-        } else if (data.status === 204 || data.value.length === 0) {
-          this.props.changeModalAlert(
-            true,
-            "Статусы не найдены",
-            0,
-            warningModal
-          );
-          this.setTimer(2000)
-        } else {
-          this.props.history.push("/status/current-user");
-        }
-      });
+      // const pattern = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+      const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      if (pattern.test(String(email).toLowerCase())) {
+        // this.props.userStatusFetch("/rest/user/status", "POST", body);
+        console.log(
+          "url  ",
+          this.props.app.appConfig.mainUrl + "/rest/measurements"
+        );
+        console.log("url2  ", "/rest/measurements");
+        this.props
+          .userStatusFetch(
+            this.props.app.appConfig.mainUrl + "/rest/measurements"
+          )
+          .then(data => {
+            if (this.props.statusError.hasErrored) {
+              this.props.changeModalAlert(
+                true,
+                `${
+                  this.props.statusError.status
+                    ? this.props.statusError.status
+                    : ""
+                }: ${this.props.statusError.msg.toString()}`,
+                0,
+                negativeModal,
+                this.props.modal.timer
+              );
+              this.setTimer(2000);
+            } else if (data.status === 204 || data.value.length === 0) {
+              this.props.changeModalAlert(
+                true,
+                "Статусы не найдены",
+                0,
+                warningModal
+              );
+              this.setTimer(2000);
+            } else {
+              this.props.history.push("/status/current-user");
+            }
+          });
+      } else {
+        this.props.changeModalAlert(
+          true,
+          "Некорректный email!",
+          0,
+          warningModal
+        );
+        this.setTimer(2000);
+      }
     } else {
-      this.props.changeModalAlert(
-        true,
-        "Некорректный email!",
-        0,
-        warningModal
-      );
-      this.setTimer(2000)
-    }
-    } else {
-      this.props.changeModalAlert(
-        true,
-        "Заполните все поля!",
-        0,
-        warningModal
-      );
-      this.setTimer(2000)
+      this.props.changeModalAlert(true, "Заполните все поля!", 0, warningModal);
+      this.setTimer(2000);
     }
   };
   render() {
@@ -128,10 +136,10 @@ const mapStateToProps = state => {
   return {
     admin: state.administration,
     user: state.user,
-    roleAlias: state.app.appConfig.roles,
     statusForm: state.statusForm,
     statusError: state.status.error,
-    modal: state.modal
+    modal: state.modal,
+    app: state.app
   };
 };
 const mapDispatchToProps = dispatch => {
