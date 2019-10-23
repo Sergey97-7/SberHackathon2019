@@ -40,8 +40,15 @@ export const fetchDataRedux = async(
             dispatch(error(true, errorMsg, errorStatus));
         } else if (res.status === 200) {
             let result;
-            if (data.hasOwnProperty("value")) result = data.value
-            else result = data
+            if (data.hasOwnProperty("value")) {
+                if (Array.isArray(data.value)) {
+                    result = data.value
+                } else {
+                    result = [data.value]
+                }
+            } else {
+                result = data
+            }
             dispatch(success(result));
         } else {
 
