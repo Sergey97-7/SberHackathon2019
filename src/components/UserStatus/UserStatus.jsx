@@ -47,9 +47,7 @@ class UserStatus extends Component {
       if (id.trim() !== "") {
         this.props
           .userStatusFetch(
-            this.props.app.appConfig.mainUrl + "/rest/measurements2",
-            "POST",
-            body
+             `${this.props.app.appConfig.mainUrl}/rest/measurements${id}`
           )
           .then(data => {
             if (this.props.statusError.hasErrored) {
@@ -82,9 +80,9 @@ class UserStatus extends Component {
           // this.props.userStatusFetch("/rest/user/status", "POST", body);
           this.props
             .userStatusFetch(
-              this.props.app.appConfig.mainUrl + "/rest/measurements"
-              // "POST",
-              // body
+              this.props.app.appConfig.mainUrl + "/rest/measurements",
+              "POST",
+              body
             )
             .then(data => {
               if (this.props.statusError.hasErrored) {

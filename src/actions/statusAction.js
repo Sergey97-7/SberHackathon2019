@@ -56,6 +56,7 @@ export function userStatusDateInputChange(value, id) {
 
 export function userSetStatus(user) {
     return dispatch => {
+        // dispatch(userStatusSuccessFetch(null))
         if (user.length !== 0) {
             user.sort(
                 (a, b) =>
