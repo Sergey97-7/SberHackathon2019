@@ -47,7 +47,7 @@ class UserStatus extends Component {
       if (id.trim() !== "") {
         this.props
           .userStatusFetch(
-             `${this.props.app.appConfig.mainUrl}/rest/measurements${id}`
+             `${this.props.app.appConfig.mainUrl}/rest/measurements/${id}`
           )
           .then(data => {
             if (this.props.statusError.hasErrored) {
