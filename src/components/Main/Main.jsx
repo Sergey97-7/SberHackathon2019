@@ -15,7 +15,9 @@ import { changeModalAlert } from "../../actions/modalAction";
 import { Redirect } from "react-router-dom";
 class Main extends Component {
   componentDidMount() {
-    this.props.userListFetch("/rest/users");
+console.log("this.props", this.props)
+    // this.props.userListFetch(`${this.props.app.appConfig.mainUrl}/rest/users`);
+    this.props.userListFetch(`/rest/users`);
   }
   render() {
     const { importance, isOpen, msg, time } = this.props.modal;
@@ -61,7 +63,8 @@ const mapStateToProps = state => {
   return {
     admin: state.administration,
     config: state.app.appConfig,
-    modal: state.modal
+    modal: state.modal,
+    app: state.app
   };
 };
 const mapDispatchToProps = dispatch => {

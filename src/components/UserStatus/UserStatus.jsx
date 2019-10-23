@@ -43,14 +43,11 @@ class UserStatus extends Component {
 
       if (pattern.test(String(email).toLowerCase())) {
         // this.props.userStatusFetch("/rest/user/status", "POST", body);
-        console.log(
-          "url  ",
-          this.props.app.appConfig.mainUrl + "/rest/measurements"
-        );
-        console.log("url2  ", "/rest/measurements");
         this.props
           .userStatusFetch(
-            this.props.app.appConfig.mainUrl + "/rest/measurements"
+            this.props.app.appConfig.mainUrl + "/rest/measurements",
+            "POST",
+            body
           )
           .then(data => {
             if (this.props.statusError.hasErrored) {

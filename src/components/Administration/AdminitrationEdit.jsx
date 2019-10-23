@@ -37,7 +37,7 @@ class AdministrationEdit extends Component {
         body.name = name;
       }
       const fetchDataPut = async () => {
-        const rawResponse = await fetch(`/rest/users/${this.currentUser.id}`, {
+        const rawResponse = await fetch(`${this.props.app.appConfig.mainUrl}/rest/users/${this.currentUser.id}`, {
           method: "PUT",
           headers: {
             Accept: "application/json",
@@ -121,7 +121,8 @@ const mapStateToProps = state => {
   return {
     admin: state.administration,
     user: state.user,
-    roleAlias: state.app.appConfig.roles
+    roleAlias: state.app.appConfig.roles,
+    app: state.app
   };
 };
 const mapDispatchToProps = dispatch => {

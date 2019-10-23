@@ -1,19 +1,25 @@
 .administration {
-  .administration-search {
-    display: flex;
-    justify-content: space-around;
-    .input-search {
-      flex: 3;
+    .administration-search {
+        display: flex;
+        justify-content: space-around;
+        .input-search {
+            flex: 3;
+        }
+        .button-add-user {
+            margin-left: 5px;
+        }
     }
-    .button-add-user {
-      margin-left: 5px;
+    .user-filter-not-found {
+        text-align: center;
     }
-  }
-  .user-filter-not-found {
-    text-align: center;
-  }
-  .last-cell {
+    .last-cell {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.administration-create .administration-create-header {
     display: flex;
     justify-content: space-between;
-  }
+    align-items: center;
 }

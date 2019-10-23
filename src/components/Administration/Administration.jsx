@@ -3,12 +3,26 @@ import { connect } from "react-redux";
 import "./Administration.scss";
 import { Button, Header, Input, Table, Icon, Search } from "semantic-ui-react";
 import { changeAdminSearchInput } from "../../actions/administrationAction";
-// import { userListFetch } from "../../actions/userActions";
-
+import { userListFetch } from "../../actions/userActions";
+import { changeModalAlert } from "../../actions/modalAction";
+import {
+  warningModal,
+  negativeModal,
+  infoModal,
+  successModal
+} from "../../constants/constants";
 class Administration extends Component {
   // componentDidMount() {
   //   this.props.userListFetch("/rest/users");
   // }
+  timer = null;
+  setTimer = time => {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(
+      () => this.props.changeModalAlert(false, "", 0, infoModal),
+      time
+    );
+  };
   redirect = e => {
     if (e.currentTarget.getAttribute("name") === "edit") {
       this.props.history.push(
@@ -25,8 +39,8 @@ class Administration extends Component {
         return true;
       } else {
         return (
-          user.name.includes(admin.userSearchInputValue.trim()) ||
-          user.email.includes(admin.userSearchInputValue.trim())
+          user.name.toLowerCase().includes(admin.userSearchInputValue.trim().toLowerCase()) ||
+          user.email.toLowerCase().includes(admin.userSearchInputValue.toLowerCase().trim())
         );
       }
     });
@@ -42,18 +56,21 @@ class Administration extends Component {
           key={user.id}
           email={user.email}
           name="edit"
-          onClick={this.redirect}
+          // onClick={this.redirect}
         >
-          <Table.Cell>{user.name}</Table.Cell>
+          <Table.Cell width={8}>{user.name}</Table.Cell>
           {/* <Icon name="pencil alternate"/> */}
-          <Table.Cell className="last-cell">
+          <Table.Cell width={16} className="last-cell">
             {user.email}
             <Icon
               name="delete"
+              userid={user.id}
               size="large"
-              onClick={event => {
+              className="pointer"
+              onClick={(event, { userid }) => {
                 event.stopPropagation();
-                console.log("click");
+                console.log("click", userid);
+                this.deleteUser(event, userid);
               }}
             />
           </Table.Cell>
@@ -61,10 +78,50 @@ class Administration extends Component {
       );
     });
   };
-  deleteUser = (event) => {
-    event.stopPropagation();
 
-  }
+  deleteUser = (event, userId) => {
+    console.log("event", event.target.userId);
+    event.stopPropagation();
+    const fetchDeleteUser = async () => {
+      try {
+        const rawResponse = await fetch(
+          `${this.props.app.appConfig.mainUrl}/rest/users/${userId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            }
+          }
+        );
+        const res = await rawResponse.json();
+        if (res.hasOwnProperty("error")) {
+          this.props.changeModalAlert(
+            true,
+            `${res.status} : ${res.error}`,
+            0,
+            negativeModal
+          );
+          this.setTimer(2000);
+        } else {
+          this.props.userListFetch(
+            `${this.props.app.appConfig.mainUrl}/rest/users`
+          );
+          this.props.changeModalAlert(
+            true,
+            "Пользователь успешно удален!",
+            0,
+            successModal
+          );
+          this.setTimer(2000);
+        }
+      } catch (e) {
+        this.props.changeModalAlert(true, e.toString(), 0, negativeModal);
+        this.setTimer(2000);
+      }
+    };
+    fetchDeleteUser();
+  };
   render() {
     const { admin, changeAdminSearchInput, user, config } = this.props;
     return (
@@ -118,14 +175,17 @@ const mapStateToProps = state => {
   return {
     admin: state.administration,
     user: state.user,
-    config: state.app.appConfig
+    config: state.app.appConfig,
+    app: state.app
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    // userListFetch: url => dispatch(userListFetch(url)),
+    userListFetch: url => dispatch(userListFetch(url)),
     changeAdminSearchInput: e =>
-      dispatch(changeAdminSearchInput(e.target.value))
+      dispatch(changeAdminSearchInput(e.target.value)),
+    changeModalAlert: (bool, msg, time, importance) =>
+      dispatch(changeModalAlert(bool, msg, time, importance))
   };
 };
 export default connect(

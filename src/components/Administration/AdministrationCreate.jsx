@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Button,  Form, Header, Input } from "semantic-ui-react";
+import { Button, Form, Header, Input } from "semantic-ui-react";
 import { createCurrentUser } from "../../actions/userActions";
+import { userListFetch } from "../../actions/userActions";
+import { changeModalAlert } from "../../actions/modalAction";
+import {
+  warningModal,
+  negativeModal,
+  infoModal,
+  successModal
+} from "../../constants/constants";
 class AdministrationCreate extends Component {
   state = {
     name: "",
@@ -9,6 +17,14 @@ class AdministrationCreate extends Component {
     pwd: "",
     pwdConfirm: "",
     role: "0"
+  };
+  timer = null;
+  setTimer = time => {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(
+      () => this.props.changeModalAlert(false, "", 0, infoModal),
+      time
+    );
   };
   createUser = () => {
     const { pwd, pwdConfirm, role, name, email } = this.state;
@@ -21,40 +37,75 @@ class AdministrationCreate extends Component {
     ) {
       const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (pattern.test(String(email).toLowerCase())) {
-
-      
-      if (pwd.trim() === pwdConfirm.trim()) {
-        body = {
-          name: name.trim(),
-          hash: pwd.trim(),
-          role: role.trim(),
-          email: email.trim(),
-          uuid: ""
-        };
-        const fetchDataPost = async () => {
-          const rawResponse = await fetch("/rest/users/", {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(body)
-          });
-          const res = await rawResponse.json();
-          if (res.value.hasOwnProperty("id")) {
-            await this.props.createCurrentUser(res.value);
-          } else {
-            console.log("adminEditResponse: ", res);
-          }
-        };
-        fetchDataPost();
+        if (pwd.trim() === pwdConfirm.trim()) {
+          body = {
+            name: name.trim(),
+            hash: pwd.trim(),
+            email: email.trim()
+          };
+          const fetchDataPost = async () => {
+            try {
+              const rawResponse = await fetch(
+                `${this.props.app.appConfig.mainUrl}/rest/users`,
+                {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(body)
+                }
+              );
+              const res = await rawResponse.json();
+              if (res.hasOwnProperty("error")) {
+                this.props.changeModalAlert(
+                  true,
+                  `${res.status} : ${res.error}`,
+                  0,
+                  negativeModal
+                );
+                this.setTimer(2000);
+              } else {
+                this.props.userListFetch(
+                  `${this.props.app.appConfig.mainUrl}/rest/users`
+                );
+                this.props.changeModalAlert(
+                  true,
+                  "Пользователь успешно создан!",
+                  0,
+                  successModal
+                );
+                this.setTimer(2000);
+              }
+            } catch (e) {
+              this.props.changeModalAlert(true, e.toString(), 0, negativeModal);
+              this.setTimer(2000);
+            }
+          };
+          fetchDataPost();
+        } else {
+          this.props.changeModalAlert(
+            true,
+            "Пароли не совпадают!",
+            0,
+            warningModal
+          );
+          this.setTimer(2000);
+          console.log("Пароли не совпадают!");
+        }
       } else {
-        console.log("Пароли не совпадают!")
-      }
-      } else {
+        this.props.changeModalAlert(
+          true,
+          "Введите корректный email!",
+          0,
+          warningModal
+        );
+        this.setTimer(2000);
         console.log("Введите корректный email!");
       }
     } else {
+      this.props.changeModalAlert(true, "Заполните все поля!", 0, warningModal);
+      this.setTimer(2000);
       console.log("Заполните все поля!");
     }
   };
@@ -64,8 +115,15 @@ class AdministrationCreate extends Component {
   roleHandler = (e, { value }) => {
     this.setState({ role: value });
   };
+  redirect = e => {
+    if (e.currentTarget.getAttribute("name") === "administration") {
+      this.props.history.push(`/administration`);
+    } else if (e.currentTarget.getAttribute("name") === "create") {
+      this.props.history.push("/administration/create");
+    }
+  };
   render() {
-    const { roleAlias} = this.props;
+    const { roleAlias } = this.props;
     const { pwd, pwdConfirm, role, name, email } = this.state;
     const options = Object.keys(roleAlias).map(opt => {
       return {
@@ -75,10 +133,21 @@ class AdministrationCreate extends Component {
       };
     });
     return (
-      <Form className="text-left">
-        <Header floated={"left"} as="h4">
-          Создание нового пользователя
-        </Header>
+      <Form className="administration-create text-left">
+        <Form.Group className="administration-create-header">
+          <Header floated={"left"} as="h4">
+            Создание нового пользователя
+          </Header>
+          <Button
+            className="button-add-user"
+            primary
+            name="administration"
+            onClick={this.redirect}
+          >
+            Назад
+          </Button>
+        </Form.Group>
+
         <Form.Field required>
           <label>Имя</label>
           <Input value={name} onChange={this.inputHandler} name="name" />
@@ -126,12 +195,16 @@ class AdministrationCreate extends Component {
 
 const mapStateToProps = state => {
   return {
-    roleAlias: state.app.appConfig.roles
+    roleAlias: state.app.appConfig.roles,
+    app: state.app
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    createCurrentUser: user => dispatch(createCurrentUser(user))
+    createCurrentUser: user => dispatch(createCurrentUser(user)),
+    userListFetch: url => dispatch(userListFetch(url)),
+    changeModalAlert: (bool, msg, time, importance) =>
+      dispatch(changeModalAlert(bool, msg, time, importance))
   };
 };
 export default connect(

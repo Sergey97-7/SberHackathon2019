@@ -1,11 +1,17 @@
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
+
 .customContainer {
-  border-radius: 5px;
-  box-shadow: 7px 7px 15px 0px rgba(50, 50, 50, 0.75);
+    border-radius: 5px;
+    box-shadow: 7px 7px 15px 0px rgba(50, 50, 50, 0.75);
 }
+
 .text-left {
-  text-align: left;
+    text-align: left;
+}
+
+.pointer {
+    cursor: pointer;
 }
