@@ -6,15 +6,11 @@ import { changeAdminSearchInput } from "../../actions/administrationAction";
 import { userListFetch } from "../../actions/userActions";
 import { changeModalAlert } from "../../actions/modalAction";
 import {
-  warningModal,
   negativeModal,
   infoModal,
   successModal
 } from "../../constants/constants";
 class Administration extends Component {
-  // componentDidMount() {
-  //   this.props.userListFetch("/rest/users");
-  // }
   timer = null;
   setTimer = time => {
     clearTimeout(this.timer);
@@ -33,14 +29,18 @@ class Administration extends Component {
     }
   };
   getUsers = () => {
-    const { admin, user, config } = this.props;
+    const { admin, user } = this.props;
     const filteredUsers = user.userList.filter(user => {
       if (admin.userSearchInputValue.trim() === "") {
         return true;
       } else {
         return (
-          user.name.toLowerCase().includes(admin.userSearchInputValue.trim().toLowerCase()) ||
-          user.email.toLowerCase().includes(admin.userSearchInputValue.toLowerCase().trim())
+          user.name
+            .toLowerCase()
+            .includes(admin.userSearchInputValue.trim().toLowerCase()) ||
+          user.email
+            .toLowerCase()
+            .includes(admin.userSearchInputValue.toLowerCase().trim())
         );
       }
     });
@@ -58,8 +58,7 @@ class Administration extends Component {
           name="edit"
           // onClick={this.redirect}
         >
-          <Table.Cell width={8}>{user.name}</Table.Cell>
-          {/* <Icon name="pencil alternate"/> */}
+          <Table.Cell width={6}>{user.name}</Table.Cell>
           <Table.Cell width={16} className="last-cell">
             {user.email}
             <Icon
@@ -69,7 +68,6 @@ class Administration extends Component {
               className="pointer"
               onClick={(event, { userid }) => {
                 event.stopPropagation();
-                console.log("click", userid);
                 this.deleteUser(event, userid);
               }}
             />
@@ -80,7 +78,6 @@ class Administration extends Component {
   };
 
   deleteUser = (event, userId) => {
-    console.log("event", event.target.userId);
     event.stopPropagation();
     const fetchDeleteUser = async () => {
       try {
@@ -123,7 +120,7 @@ class Administration extends Component {
     fetchDeleteUser();
   };
   render() {
-    const { admin, changeAdminSearchInput, user, config } = this.props;
+    const { admin, changeAdminSearchInput, user } = this.props;
     return (
       <div className="administration">
         <Header className="text-left" size="medium">
@@ -171,7 +168,6 @@ class Administration extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log("state", state);
   return {
     admin: state.administration,
     user: state.user,

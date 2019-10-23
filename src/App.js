@@ -17,14 +17,15 @@ class App extends Component {
     fetchData(appConfigUrl)
       .then(data => {
         store.dispatch(getAppConfig(data));
-      }).then(()=> this.setState({ loading: false }))
+      })
+      .then(() => this.setState({ loading: false }))
       .catch(error => this.setState({ error, loading: false }));
   }
   render() {
     return (
       <Provider store={store}>
         <Router>
-          {this.state.error === null || this.state.loading === false ? (
+          {this.state.error === null && this.state.loading === false ? (
             <Switch>
               <Route exact path="/login" component={Login} />
               <Route path="/" component={Main} />

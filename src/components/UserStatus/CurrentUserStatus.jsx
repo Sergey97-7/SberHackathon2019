@@ -50,6 +50,9 @@ class CurrentUserStatus extends Component {
             <Header block={true} as="h4">
               История запросов пользователя: {currentUser.account.email}
             </Header>
+            <Header block={true} as="h4">
+              Id : {currentUser.id}
+            </Header>
             <Grid columns={2} stackable>
               <Grid.Row>
                 <Grid.Column width={3} >

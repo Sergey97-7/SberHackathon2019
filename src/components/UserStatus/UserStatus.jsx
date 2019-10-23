@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Form, Header } from "semantic-ui-react";
 import "./UserStatus.scss";
+// import "./UserStatus.css";
+// import "./DatePicker.scss";
+import "./DatePicker.css";
 import {
   userStatusFetch,
   userStatusFormInputChange
@@ -13,6 +16,7 @@ import {
   negativeModal,
   infoModal
 } from "../../constants/constants";
+import { DatetimePicker } from "rc-datetime-picker";
 class UserStatus extends Component {
   timer = null;
   setTimer = time => {
@@ -46,8 +50,8 @@ class UserStatus extends Component {
         this.props
           .userStatusFetch(
             this.props.app.appConfig.mainUrl + "/rest/measurements",
-            "POST",
-            body
+            // "POST",
+            // body
           )
           .then(data => {
             if (this.props.statusError.hasErrored) {
@@ -101,24 +105,39 @@ class UserStatus extends Component {
           <Form.Input
             name="email"
             value={email}
-            onChange={userStatusFormInputChange}
+            onChange={e => userStatusFormInputChange("email", e.target.value)}
             label="Email: "
             type="email"
           />
-          <Form.Input
-            name="periodFrom"
-            value={periodFrom}
-            onChange={userStatusFormInputChange}
-            label="Период с:"
-            type="datetime-local"
-          />
-          <Form.Input
-            name="periodTo"
-            value={periodTo}
-            onChange={userStatusFormInputChange}
-            label="Период до:"
-            type="datetime-local"
-          />
+          <div className="user-status-datepicker-container">
+            <div>
+              <label>Период c:</label>
+              <DatetimePicker
+                name="periodFrom"
+                moment={moment(periodFrom)}
+                onChange={moment =>
+                  userStatusFormInputChange(
+                    "periodFrom",
+                    moment.format("YYYY-MM-DDTHH:mm:ss")
+                  )
+                }
+              />
+            </div>
+            <div className="user-status-datepicker-to">
+              <label>Период до:</label>
+              <DatetimePicker
+                name="periodTo"
+                moment={moment(periodTo)}
+                onChange={moment =>
+                  userStatusFormInputChange(
+                    "periodTo",
+                    moment.format("YYYY-MM-DDTHH:mm:ss")
+                  )
+                }
+              />
+            </div>
+          </div>
+
           <Button onClick={this.btnUserStatusHandler} type="submit">
             Найти
           </Button>
@@ -143,13 +162,8 @@ const mapDispatchToProps = dispatch => {
   return {
     userStatusFetch: (user, type, body) =>
       dispatch(userStatusFetch(user, type, body)),
-    userStatusFormInputChange: e =>
-      dispatch(
-        userStatusFormInputChange(
-          e.target.getAttribute(["name"]),
-          e.target.value
-        )
-      ),
+    userStatusFormInputChange: (type, value) =>
+      dispatch(userStatusFormInputChange(type, value)),
     changeModalAlert: (bool, msg, time, importance) =>
       dispatch(changeModalAlert(bool, msg, time, importance))
   };
