@@ -35,6 +35,8 @@
 
 .button-add-user-mobile {
     display: none !important;
+    opacity: 0;
+    // padding: 0 !important;
 }
 
 .desktop-btn-back {}
@@ -44,17 +46,23 @@
         opacity: 1;
     }
     .desktop-btn-back {
-        opacity: 0;
-        width: 0px;
+        display: none !important;
+        opacity: 0 !important;
+        padding: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
     }
     .administration-create-btns-container {
         display: flex;
         justify-content: space-around;
     }
     .button-add-user-mobile {
+        opacity: 1;
         display: block !important;
     }
     .button-add-user-desktop {
+        opacity: 0;
+        padding: 0 !important;
         display: none !important;
     }
 }

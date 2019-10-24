@@ -23,7 +23,7 @@ class Main extends Component {
       <>
         <Redirect to="/administration" />
         {this.props.config !== null && (
-          <Segment className="segment-custom-media">
+          <Segment className="segment-custom-media root-segment" >
             <ModalAlert
               isOpen={isOpen}
               msg={msg}
