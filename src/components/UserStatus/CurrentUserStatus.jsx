@@ -50,21 +50,21 @@ class CurrentUserStatus extends Component {
                   История запросов пользователя: {currentUser.account.email}
                 </Header.Subheader>
               </Header>
-              <Grid columns={2} stackable>
+              <Grid >
                 <Grid.Row>
-                  <Grid.Column width={3}>
+                  <Grid.Column width={3} >
                     <StatusList
                       user={user}
                       currentDate={dateInput}
                       currentUserId={currentUserId}
                     />
                   </Grid.Column>
-                  <Grid.Column width={13}>
-                    <Segment>
+                  <Grid.Column width={13} id="custom-padding">
+                    <Segment className="segment-custom-media">
                       <Header block={true} as="h4">
                         Статус устройства
                       </Header>
-                      <Table celled>
+                      <Table unstackable celled>
                         <Table.Header>
                           <Table.Row>
                             <Table.HeaderCell>Поле</Table.HeaderCell>
@@ -73,10 +73,10 @@ class CurrentUserStatus extends Component {
                         </Table.Header>
                         <Table.Body>
                           {user.length !== 0
-                            ? Object.keys(currentUser.device).map(field => {
+                            ? Object.keys(currentUser.device).filter(field => field !== "deviceId").map(field => {
                                 return (
                                   <Table.Row key={field}>
-                                    <Table.Cell width={3}>{field}</Table.Cell>
+                                    <Table.Cell width={2}>{field}</Table.Cell>
                                     <Table.Cell
                                       className="field-wrap"
                                       width={8}
@@ -90,11 +90,11 @@ class CurrentUserStatus extends Component {
                         </Table.Body>
                       </Table>
                     </Segment>
-                    <Segment>
+                    <Segment className="segment-custom-media">
                       <Header block={true} as="h4">
                         Текущая сеть: {currentUser.connection.ssid}
                       </Header>
-                      <Table celled>
+                      <Table unstackable celled>
                         <Table.Header>
                           <Table.Row>
                             <Table.HeaderCell>Поле</Table.HeaderCell>
@@ -103,10 +103,10 @@ class CurrentUserStatus extends Component {
                         </Table.Header>
                         <Table.Body>
                           {user.length !== 0
-                            ? Object.keys(currentUser.connection).map(field => {
+                            ? Object.keys(currentUser.connection).filter(field => field !== "id").map(field => {
                                 return (
                                   <Table.Row key={field}>
-                                    <Table.Cell width={3}>{field}</Table.Cell>
+                                    <Table.Cell width={2}>{field}</Table.Cell>
                                     <Table.Cell width={8}>
                                       {currentUser.connection[field]}
                                     </Table.Cell>
@@ -117,11 +117,11 @@ class CurrentUserStatus extends Component {
                         </Table.Body>
                       </Table>
                     </Segment>
-                    <Segment>
+                    <Segment className="segment-custom-media">
                       <Header block={true} as="h4">
                         Test Kit
                       </Header>
-                      <Table celled>
+                      <Table unstackable celled>
                         <Table.Header>
                           <Table.Row>
                             <Table.HeaderCell>Поле</Table.HeaderCell>
@@ -130,10 +130,10 @@ class CurrentUserStatus extends Component {
                         </Table.Header>
                         <Table.Body>
                           {user.length !== 0
-                            ? Object.keys(currentUser.testKit).map(field => {
+                            ? Object.keys(currentUser.testKit).filter(field => field !== "id").map(field => {
                                 return (
                                   <Table.Row key={field}>
-                                    <Table.Cell width={3}>{field}</Table.Cell>
+                                    <Table.Cell width={2}>{field}</Table.Cell>
                                     <Table.Cell width={8}>
                                       {currentUser.connection[field]}
                                     </Table.Cell>
@@ -144,7 +144,7 @@ class CurrentUserStatus extends Component {
                         </Table.Body>
                       </Table>
                     </Segment>
-                    <Segment>
+                    <Segment className="segment-custom-media">
                       <Header block={true} as="h4">
                         Комментарий пользователя
                       </Header>
@@ -155,7 +155,7 @@ class CurrentUserStatus extends Component {
                       </Header>
                       {currentUser.networks.map((network, i) => {
                         return (
-                          <Table celled key={i}>
+                          <Table unstackable celled key={i}>
                             <Table.Header>
                               <Table.Row>
                                 <Table.HeaderCell>Поле</Table.HeaderCell>
@@ -164,10 +164,10 @@ class CurrentUserStatus extends Component {
                             </Table.Header>
                             <Table.Body>
                               {user.length !== 0
-                                ? Object.keys(network).map(field => {
+                                ? Object.keys(network).filter(field => field !== "id").map(field => {
                                     return (
                                       <Table.Row key={field}>
-                                        <Table.Cell width={3}>
+                                        <Table.Cell width={2}>
                                           {field}
                                         </Table.Cell>
                                         <Table.Cell width={8}>

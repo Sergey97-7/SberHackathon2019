@@ -64,7 +64,7 @@ class Administration extends Component {
             <Icon
               name="delete"
               userid={user.id}
-              size="large"
+              // size="small"
               className="pointer"
               onClick={(event, { userid }) => {
                 event.stopPropagation();
@@ -149,7 +149,7 @@ class Administration extends Component {
         ) : user.isLoading ? (
           <div>Загрузка...</div>
         ) : (
-          <Table celled>
+          <Table unstackable  celled>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Имя</Table.HeaderCell>

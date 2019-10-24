@@ -135,11 +135,11 @@ class AdministrationCreate extends Component {
     return (
       <Form className="administration-create text-left">
         <Form.Group className="administration-create-header">
-          <Header floated={"left"} as="h4">
+          <Header floated={"left"} as="h4" className="segment-custom-media" >
             Создание нового пользователя
           </Header>
           <Button
-            className="button-add-user"
+            className="button-add-user desktop-btn-back"
             primary
             name="administration"
             onClick={this.redirect}
@@ -185,9 +185,19 @@ class AdministrationCreate extends Component {
           value={role}
           onChange={this.roleHandler}
         /> */}
+        <div className="administration-create-btns-container">
         <Button onClick={this.createUser} type="submit">
           Добавить
         </Button>
+        <Button
+            className="button-add-user mobile-btn-back"
+            primary
+            name="administration"
+            onClick={this.redirect}
+          >
+            Назад
+          </Button>
+          </div>
       </Form>
     );
   }

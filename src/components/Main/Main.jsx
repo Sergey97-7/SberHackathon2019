@@ -23,7 +23,7 @@ class Main extends Component {
       <>
         <Redirect to="/administration" />
         {this.props.config !== null && (
-          <Segment>
+          <Segment className="segment-custom-media">
             <ModalAlert
               isOpen={isOpen}
               msg={msg}
@@ -32,7 +32,7 @@ class Main extends Component {
               time={time}
             />
             <Menu pathname={this.props.location.pathname} />
-            <Segment className="main-content-segment">
+            <Segment className="main-content-segment segment-custom-media">
               <Route exact path="/administration" component={Administration} />
               <Route
                 exact

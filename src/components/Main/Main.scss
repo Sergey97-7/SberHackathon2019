@@ -1,9 +1,18 @@
 .main {
-  .main-segment {
-    min-height: 400px;
-  }
-  .side-menu-segment,
-  .main-content-segment {
-    height: 100%;
-  }
+    .main-segment {
+        min-height: 400px;
+    }
+    .side-menu-segment,
+    .main-content-segment {
+        height: 100%;
+    }
+}
+
+@media (max-width: 605px) {
+    .segment-custom-media {
+        padding: 3px !important;
+    }
+    #custom-padding {
+        padding: 10px !important;
+    }
 }

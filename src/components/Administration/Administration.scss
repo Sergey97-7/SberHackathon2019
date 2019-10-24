@@ -23,3 +23,28 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.administration-create-btns-container {
+    // display: flex;
+    // justify-content: space-around;
+}
+
+.mobile-btn-back {
+    opacity: 0;
+}
+
+.desktop-btn-back {}
+
+@media (max-width: 400px) {
+    .mobile-btn-back {
+        opacity: 1;
+    }
+    .desktop-btn-back {
+        opacity: 0;
+        width: 0px;
+    }
+    .administration-create-btns-container {
+        display: flex;
+        justify-content: space-around;
+    }
+}

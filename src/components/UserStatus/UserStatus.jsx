@@ -125,6 +125,22 @@ class UserStatus extends Component {
       this.setTimer(2000);
     }
   };
+  onChangeReqInput = e => {
+    const pattern = /^\d*$/;
+    
+    if (pattern.test(e.target.value)) {
+      this.props.userStatusFormInputChange("id", e.target.value)
+    } else {
+      this.props.changeModalAlert(
+        true,
+        'Вводите только цифры в поле "Номер заявки"!',
+        0,
+        warningModal
+      );
+      this.setTimer(2000);
+    }
+   
+  }
   render() {
     const { id, email, periodFrom, periodTo } = this.props.statusForm;
     const { userStatusFormInputChange } = this.props;
@@ -137,7 +153,7 @@ class UserStatus extends Component {
           <Form.Input
             name="number"
             value={id}
-            onChange={e => userStatusFormInputChange("id", e.target.value)}
+            onChange={this.onChangeReqInput}
             label="Номер заявки: "
             type="text"
           />
@@ -178,7 +194,7 @@ class UserStatus extends Component {
             </div>
           </div>
 
-          <Button onClick={this.btnUserStatusHandler} type="submit">
+          <Button  onClick={this.btnUserStatusHandler} type="submit" className="user-status-search-btn">
             Найти
           </Button>
         </Form>

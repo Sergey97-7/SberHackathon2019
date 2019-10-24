@@ -11,6 +11,22 @@
     }
 }
 
+@media (max-width: 605px) {
+    .status .user-status-datepicker-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .user-status-datepicker-to {
+            display: block;
+            margin-left: 0px;
+        }
+    }
+    .user-status-search-btn {
+        display: block !important;
+        margin: 0 auto !important;
+    }
+}
+
 .current-user-status {
     .label {
         width: 105px;

@@ -17,7 +17,7 @@ class Sidebar extends Component {
     const { currentPage, changePage, pathname } = this.props;
 
     return (
-      <div className="sidebar">
+      // <div className="sidebar">
         <Menu pointing vertical>
           {/* <Menu.Item
           color="blue"
@@ -66,7 +66,7 @@ class Sidebar extends Component {
             Статусы устройств
           </Menu.Item>
         </Menu>
-      </div>
+      // </div>
     );
   }
 }
