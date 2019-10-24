@@ -10,7 +10,7 @@ class Sidebar extends Component {
 
     return (
       <div className="menu">
-        <Menu pointing>
+        <Menu stackable pointing>
           <Menu.Item
             color="blue"
             name="administration"

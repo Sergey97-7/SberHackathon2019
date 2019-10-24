@@ -7,6 +7,9 @@ import { getUnixDate } from "../../utils/tools";
 import ScrollButton from "../ScrollButton";
 import StatusList from "./StatusList";
 class CurrentUserStatus extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   getDateSelectOptions = () => {
     const { user } = this.props.status;
     return user.map((req, i) => {
@@ -50,34 +53,34 @@ class CurrentUserStatus extends Component {
                   История запросов пользователя: {currentUser.account.email}
                 </Header.Subheader>
               </Header>
-              <Grid >
-                <Grid.Row>
-                  <Grid.Column width={3} >
-                    <StatusList
-                      user={user}
-                      currentDate={dateInput}
-                      currentUserId={currentUserId}
-                    />
-                  </Grid.Column>
-                  <Grid.Column width={13} id="custom-padding">
-                    <Segment className="segment-custom-media">
-                      <Header block={true} as="h4">
-                        Статус устройства
-                      </Header>
-                      <Table unstackable celled>
-                        <Table.Header>
-                          <Table.Row>
-                            <Table.HeaderCell>Поле</Table.HeaderCell>
-                            <Table.HeaderCell>Значение</Table.HeaderCell>
-                          </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                          {user.length !== 0
-                            ? Object.keys(currentUser.device).filter(field => field !== "deviceId").map(field => {
+              <div className="curent-user-status-row ">
+                <StatusList
+                  user={user}
+                  currentDate={dateInput}
+                  currentUserId={currentUserId}
+                />
+                <div className="curent-user-status-column-2">
+                  <Segment className="segment-custom-media">
+                    <Header block={true} as="h4">
+                      Статус устройства
+                    </Header>
+                    <Table  celled>
+                      <Table.Header>
+                        <Table.Row >
+                          <Table.HeaderCell>Поле</Table.HeaderCell>
+                          <Table.HeaderCell>Значение</Table.HeaderCell>
+                        </Table.Row>
+                      </Table.Header>
+                      <Table.Body>
+                        {user.length !== 0
+                          ? Object.keys(currentUser.device)
+                              .filter(field => field !== "deviceId")
+                              .map(field => {
                                 return (
                                   <Table.Row key={field}>
                                     <Table.Cell width={2}>{field}</Table.Cell>
                                     <Table.Cell
+                                    
                                       className="field-wrap"
                                       width={8}
                                     >
@@ -86,24 +89,26 @@ class CurrentUserStatus extends Component {
                                   </Table.Row>
                                 );
                               })
-                            : null}
-                        </Table.Body>
-                      </Table>
-                    </Segment>
-                    <Segment className="segment-custom-media">
-                      <Header block={true} as="h4">
-                        Текущая сеть: {currentUser.connection.ssid}
-                      </Header>
-                      <Table unstackable celled>
-                        <Table.Header>
-                          <Table.Row>
-                            <Table.HeaderCell>Поле</Table.HeaderCell>
-                            <Table.HeaderCell>Значение</Table.HeaderCell>
-                          </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                          {user.length !== 0
-                            ? Object.keys(currentUser.connection).filter(field => field !== "id").map(field => {
+                          : null}
+                      </Table.Body>
+                    </Table>
+                  </Segment>
+                  <Segment className="segment-custom-media">
+                    <Header block={true} as="h4">
+                      Текущая сеть: {currentUser.connection.ssid}
+                    </Header>
+                    <Table unstackable celled>
+                      <Table.Header>
+                        <Table.Row>
+                          <Table.HeaderCell>Поле</Table.HeaderCell>
+                          <Table.HeaderCell>Значение</Table.HeaderCell>
+                        </Table.Row>
+                      </Table.Header>
+                      <Table.Body>
+                        {user.length !== 0
+                          ? Object.keys(currentUser.connection)
+                              .filter(field => field !== "id")
+                              .map(field => {
                                 return (
                                   <Table.Row key={field}>
                                     <Table.Cell width={2}>{field}</Table.Cell>
@@ -113,24 +118,26 @@ class CurrentUserStatus extends Component {
                                   </Table.Row>
                                 );
                               })
-                            : null}
-                        </Table.Body>
-                      </Table>
-                    </Segment>
-                    <Segment className="segment-custom-media">
-                      <Header block={true} as="h4">
-                        Test Kit
-                      </Header>
-                      <Table unstackable celled>
-                        <Table.Header>
-                          <Table.Row>
-                            <Table.HeaderCell>Поле</Table.HeaderCell>
-                            <Table.HeaderCell>Значение</Table.HeaderCell>
-                          </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                          {user.length !== 0
-                            ? Object.keys(currentUser.testKit).filter(field => field !== "id").map(field => {
+                          : null}
+                      </Table.Body>
+                    </Table>
+                  </Segment>
+                  <Segment className="segment-custom-media">
+                    <Header block={true} as="h4">
+                      Test Kit
+                    </Header>
+                    <Table unstackable celled>
+                      <Table.Header>
+                        <Table.Row>
+                          <Table.HeaderCell>Поле</Table.HeaderCell>
+                          <Table.HeaderCell>Значение</Table.HeaderCell>
+                        </Table.Row>
+                      </Table.Header>
+                      <Table.Body>
+                        {user.length !== 0
+                          ? Object.keys(currentUser.testKit)
+                              .filter(field => field !== "id")
+                              .map(field => {
                                 return (
                                   <Table.Row key={field}>
                                     <Table.Cell width={2}>{field}</Table.Cell>
@@ -140,31 +147,33 @@ class CurrentUserStatus extends Component {
                                   </Table.Row>
                                 );
                               })
-                            : null}
-                        </Table.Body>
-                      </Table>
-                    </Segment>
-                    <Segment className="segment-custom-media">
-                      <Header block={true} as="h4">
-                        Комментарий пользователя
-                      </Header>
-                      <p>{currentUser.comment}</p>
+                          : null}
+                      </Table.Body>
+                    </Table>
+                  </Segment>
+                  <Segment className="segment-custom-media">
+                    <Header block={true} as="h4">
+                      Комментарий пользователя
+                    </Header>
+                    <p>{currentUser.comment}</p>
 
-                      <Header block={true} as="h4">
-                        Список сетей
-                      </Header>
-                      {currentUser.networks.map((network, i) => {
-                        return (
-                          <Table unstackable celled key={i}>
-                            <Table.Header>
-                              <Table.Row>
-                                <Table.HeaderCell>Поле</Table.HeaderCell>
-                                <Table.HeaderCell>Значение</Table.HeaderCell>
-                              </Table.Row>
-                            </Table.Header>
-                            <Table.Body>
-                              {user.length !== 0
-                                ? Object.keys(network).filter(field => field !== "id").map(field => {
+                    <Header block={true} as="h4">
+                      Список сетей
+                    </Header>
+                    {currentUser.networks.map((network, i) => {
+                      return (
+                        <Table unstackable celled key={i}>
+                          <Table.Header>
+                            <Table.Row>
+                              <Table.HeaderCell>Поле</Table.HeaderCell>
+                              <Table.HeaderCell>Значение</Table.HeaderCell>
+                            </Table.Row>
+                          </Table.Header>
+                          <Table.Body>
+                            {user.length !== 0
+                              ? Object.keys(network)
+                                  .filter(field => field !== "id")
+                                  .map(field => {
                                     return (
                                       <Table.Row key={field}>
                                         <Table.Cell width={2}>
@@ -176,15 +185,20 @@ class CurrentUserStatus extends Component {
                                       </Table.Row>
                                     );
                                   })
-                                : null}
-                            </Table.Body>
-                          </Table>
-                        );
-                      })}
-                    </Segment>
-                  </Grid.Column>
+                              : null}
+                          </Table.Body>
+                        </Table>
+                      );
+                    })}
+                  </Segment>
+                </div>
+              </div>
+              {/* <Grid>
+                <Grid.Row>
+                  <Grid.Column width={3}></Grid.Column>
+                  <Grid.Column width={13} id="custom-padding"></Grid.Column>
                 </Grid.Row>
-              </Grid>
+              </Grid> */}
             </div>
           </>
         )}

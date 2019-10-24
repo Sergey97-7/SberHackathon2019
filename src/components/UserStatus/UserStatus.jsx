@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Button, Form, Header, Divider } from "semantic-ui-react";
+import { Button, Form, Header, Divider, Icon } from "semantic-ui-react";
 import "./UserStatus.scss";
 // import "./UserStatus.css";
 // import "./DatePicker.scss";
@@ -18,6 +18,9 @@ import {
 } from "../../constants/constants";
 import { DatetimePicker } from "rc-datetime-picker";
 class UserStatus extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   timer = null;
   setTimer = time => {
     clearTimeout(this.timer);
@@ -47,7 +50,7 @@ class UserStatus extends Component {
       if (id.trim() !== "") {
         this.props
           .userStatusFetch(
-             `${this.props.app.appConfig.mainUrl}/rest/measurements/${id}`
+            `${this.props.app.appConfig.mainUrl}/rest/measurements/${id}`
           )
           .then(data => {
             if (this.props.statusError.hasErrored) {
@@ -121,15 +124,15 @@ class UserStatus extends Component {
         }
       }
     } else {
-      this.props.changeModalAlert(true, "Заполните все поля!", 0, warningModal);
+      this.props.changeModalAlert(true, "Заполните хотя бы одно поле!", 0, warningModal);
       this.setTimer(2000);
     }
   };
   onChangeReqInput = e => {
     const pattern = /^\d*$/;
-    
+
     if (pattern.test(e.target.value)) {
-      this.props.userStatusFormInputChange("id", e.target.value)
+      this.props.userStatusFormInputChange("id", e.target.value);
     } else {
       this.props.changeModalAlert(
         true,
@@ -139,7 +142,9 @@ class UserStatus extends Component {
       );
       this.setTimer(2000);
     }
-   
+  };
+  componentWillUnmount() {
+    this.setTimer(0);
   }
   render() {
     const { id, email, periodFrom, periodTo } = this.props.statusForm;
@@ -150,13 +155,24 @@ class UserStatus extends Component {
           Поиск
         </Header>
         <Form>
-          <Form.Input
-            name="number"
-            value={id}
-            onChange={this.onChangeReqInput}
-            label="Номер заявки: "
-            type="text"
-          />
+          <div>
+            <Form.Input
+              name="number"
+              value={id}
+              onChange={this.onChangeReqInput}
+              label="Номер заявки: "
+              type="text"
+              icon={
+                <Icon
+                  onClick={this.btnUserStatusHandler}
+                  name="search"
+                  inverted
+                  circular
+                  link
+                />
+              }
+            />
+          </div>
           <Divider horizontal>Or</Divider>
           <Form.Input
             name="email"
@@ -193,8 +209,12 @@ class UserStatus extends Component {
               />
             </div>
           </div>
-
-          <Button  onClick={this.btnUserStatusHandler} type="submit" className="user-status-search-btn">
+          <Button
+            primary
+            onClick={this.btnUserStatusHandler}
+            type="submit"
+            className="user-status-search-btn"
+          >
             Найти
           </Button>
         </Form>

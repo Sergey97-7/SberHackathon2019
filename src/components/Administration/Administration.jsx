@@ -119,8 +119,12 @@ class Administration extends Component {
     };
     fetchDeleteUser();
   };
+  componentWillUnmount() {
+    this.setTimer(0);
+  }
   render() {
     const { admin, changeAdminSearchInput, user } = this.props;
+    console.log("document.body.clientWidth", document.body.clientWidth);
     return (
       <div className="administration">
         <Header className="text-left" size="medium">
@@ -136,7 +140,16 @@ class Administration extends Component {
             placeholder="Поиск..."
           />
           <Button
-            className="button-add-user"
+            className="button-add-user button-add-user-mobile"
+            primary
+            name="create"
+            onClick={this.redirect}
+            size="mini"
+          >
+            +
+          </Button>
+          <Button
+            className="button-add-user button-add-user-desktop"
             primary
             name="create"
             onClick={this.redirect}
@@ -149,7 +162,7 @@ class Administration extends Component {
         ) : user.isLoading ? (
           <div>Загрузка...</div>
         ) : (
-          <Table unstackable  celled>
+          <Table unstackable celled>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Имя</Table.HeaderCell>

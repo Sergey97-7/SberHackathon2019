@@ -33,6 +33,10 @@
     opacity: 0;
 }
 
+.button-add-user-mobile {
+    display: none !important;
+}
+
 .desktop-btn-back {}
 
 @media (max-width: 400px) {
@@ -46,5 +50,11 @@
     .administration-create-btns-container {
         display: flex;
         justify-content: space-around;
+    }
+    .button-add-user-mobile {
+        display: block !important;
+    }
+    .button-add-user-desktop {
+        display: none !important;
     }
 }

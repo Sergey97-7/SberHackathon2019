@@ -10,7 +10,7 @@ class StatusList extends Component {
     const { user, userStatusDateInputChange, currentUserId } = this.props;
 
     return (
-      <div>
+      <div className="curent-user-status-column-1">
         <Menu pointing vertical className="status-list">
           {user.map((req, i) => {
             return (

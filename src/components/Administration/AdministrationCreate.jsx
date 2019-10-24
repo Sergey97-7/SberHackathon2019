@@ -122,6 +122,9 @@ class AdministrationCreate extends Component {
       this.props.history.push("/administration/create");
     }
   };
+  componentWillUnmount() {
+    this.setTimer(0);
+  }
   render() {
     const { roleAlias } = this.props;
     const { pwd, pwdConfirm, role, name, email } = this.state;
@@ -135,7 +138,7 @@ class AdministrationCreate extends Component {
     return (
       <Form className="administration-create text-left">
         <Form.Group className="administration-create-header">
-          <Header floated={"left"} as="h4" className="segment-custom-media" >
+          <Header floated={"left"} as="h4" className="segment-custom-media">
             Создание нового пользователя
           </Header>
           <Button
@@ -186,10 +189,10 @@ class AdministrationCreate extends Component {
           onChange={this.roleHandler}
         /> */}
         <div className="administration-create-btns-container">
-        <Button onClick={this.createUser} type="submit">
-          Добавить
-        </Button>
-        <Button
+          <Button onClick={this.createUser} type="submit">
+            Добавить
+          </Button>
+          <Button
             className="button-add-user mobile-btn-back"
             primary
             name="administration"
@@ -197,7 +200,7 @@ class AdministrationCreate extends Component {
           >
             Назад
           </Button>
-          </div>
+        </div>
       </Form>
     );
   }

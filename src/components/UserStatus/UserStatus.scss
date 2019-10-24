@@ -45,3 +45,35 @@
 .status-list {
     margin: 0 auto !important;
 }
+
+.curent-user-status-row {
+    display: flex;
+    justify-content: space-around;
+    // width: 100%;
+    flex-wrap: wrap;
+    .curent-user-status-column-1 {
+        margin-right: 10px;
+        flex: 1;
+    }
+    .curent-user-status-column-2 {
+        flex: 9;
+    }
+}
+
+@media (max-width: 1000px) {
+    .curent-user-status-row {
+        flex-direction: column;
+        .curent-user-status-column-1 {
+            margin: 10px 0;
+        }
+    }
+}
+
+.curent-user-status-column-1 {
+    // margin-right: 10px;
+    // flex: 1;
+}
+
+.curent-user-status-column-2 {
+    // flex: 9;
+}
