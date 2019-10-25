@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Grid, Header, Segment, Table } from "semantic-ui-react";
+import { Grid, Header, Segment, Table, Label } from "semantic-ui-react";
 import moment from "moment";
 import { userStatusDateInputChange } from "../../actions/statusAction";
 import { getUnixDate } from "../../utils/tools";
@@ -48,7 +48,7 @@ class CurrentUserStatus extends Component {
             <ScrollButton />
             <div className="current-user-status">
               <Header block={true} as="h4">
-                Номер заявки: {currentUser.id}
+                Номер отчета: {currentUser.id}
                 <Header.Subheader>
                   История запросов пользователя: {currentUser.account.email}
                 </Header.Subheader>
@@ -64,9 +64,9 @@ class CurrentUserStatus extends Component {
                     <Header block={true} as="h4">
                       Статус устройства
                     </Header>
-                    <Table  celled>
+                    <Table celled>
                       <Table.Header>
-                        <Table.Row >
+                        <Table.Row>
                           <Table.HeaderCell>Поле</Table.HeaderCell>
                           <Table.HeaderCell>Значение</Table.HeaderCell>
                         </Table.Row>
@@ -80,7 +80,6 @@ class CurrentUserStatus extends Component {
                                   <Table.Row key={field}>
                                     <Table.Cell width={2}>{field}</Table.Cell>
                                     <Table.Cell
-                                    
                                       className="field-wrap"
                                       width={8}
                                     >
@@ -136,7 +135,7 @@ class CurrentUserStatus extends Component {
                       <Table.Body>
                         {user.length !== 0
                           ? Object.keys(currentUser.testKit)
-                              .filter(field => field !== "id")
+                              .filter(field => field !== "id" && field !== "speed" && field !== "ports")
                               .map(field => {
                                 return (
                                   <Table.Row key={field}>
@@ -150,6 +149,43 @@ class CurrentUserStatus extends Component {
                           : null}
                       </Table.Body>
                     </Table>
+                    <Header block={true} as="h4">
+                      Тесты скорости
+                    </Header>
+                    <Table unstackable celled>
+                      <Table.Header>
+                        <Table.Row>
+                          <Table.HeaderCell>Время</Table.HeaderCell>
+                          <Table.HeaderCell>Скорость передачи</Table.HeaderCell>
+                          <Table.HeaderCell>Тип</Table.HeaderCell>
+                        </Table.Row>
+                      </Table.Header>
+                      <Table.Body>
+                        {user.length !== 0 && currentUser.testKit.speed.length !== 0
+                          ? currentUser.testKit.speed.map((test, i) => {
+                              return (
+                                <Table.Row key={i}>
+                                  <Table.Cell width={2}>{test.time}</Table.Cell>
+                                  <Table.Cell width={2}>
+                                    {`${test.value} Мбит/с` }
+                                  </Table.Cell>
+                                  <Table.Cell width={2}>{test.type}</Table.Cell>
+                                </Table.Row>
+                              );
+                            })
+                          : null}
+                      </Table.Body>
+                    </Table>
+                  </Segment>
+                  <Segment className="segment-custom-media">
+                  <Header block={true} as="h4">
+                      Открытые порты
+                    </Header>
+                    <div className="current-user-status-btn-ports-container">
+                    {user.length !== 0 && currentUser.testKit.ports.length !== 0 ? currentUser.testKit.ports.map((port,i)=> {
+                      return <Label key={i} color='green' horizontal>{port}</Label>
+                    }) : null}
+                    </div>
                   </Segment>
                   <Segment className="segment-custom-media">
                     <Header block={true} as="h4">

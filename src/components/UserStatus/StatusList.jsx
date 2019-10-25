@@ -22,10 +22,13 @@ class StatusList extends Component {
                 active={req.id === currentUserId}
                 onClick={userStatusDateInputChange}
               >
-                {moment
+                {/* {moment
                   .utc(req.measurementTime, "DD-MM-YYYY HH:mm:ss")
                   .local()
-                  .format("DD-MM-YYYY, HH:mm:ss")}
+                  .format("DD-MM-YYYY, HH:mm:ss")} */}
+                {moment(req.measurementTime, "DD-MM-YYYY HH:mm:ss").format(
+                  "DD-MM-YYYY, HH:mm:ss"
+                )}
               </Menu.Item>
             );
           })}

@@ -31,7 +31,7 @@ class Sidebar extends Component {
             to={"/status"}
             onClick={changePage}
           >
-            Статусы устройств
+            Поиск отчетов
           </Menu.Item>
         </Menu>
       </div>

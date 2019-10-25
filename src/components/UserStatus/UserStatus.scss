@@ -77,3 +77,13 @@
 .curent-user-status-column-2 {
     // flex: 9;
 }
+
+.current-user-status-btn-ports-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    // align-items: stretch;
+    div {
+        margin: 10px !important;
+    }
+}

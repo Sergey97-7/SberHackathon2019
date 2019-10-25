@@ -63,7 +63,7 @@ class Sidebar extends Component {
             // onClick={changePage}
             onClick={changePage}
           >
-            Статусы устройств
+           Поиск отчетов
           </Menu.Item>
         </Menu>
       // </div>

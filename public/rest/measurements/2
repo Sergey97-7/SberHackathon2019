@@ -100,7 +100,8 @@
         "testKit": {
             "id": 1,
             "downloadSpeed": "0 Mbit/s",
-            "uploadSpeed": "0 Mbit/s"
+            "uploadSpeed": "0 Mbit/s",
+            "speed":[{"time":"02:13:06","value":"23.9","type":"download"},{"time":"02:13:06","value":"27.0","type":"upload"},{"time":"02:13:04","value":"24.1","type":"download"},{"time":"02:13:04","value":"28.2","type":"upload"},{"time":"02:13:02","value":"22.7","type":"upload"},{"time":"02:13:02","value":"21.2","type":"download"},{"time":"02:13:00","value":"26.6","type":"upload"},{"time":"02:13:00","value":"24.7","type":"download"},{"time":"02:12:58","value":"26.5","type":"download"},{"time":"02:12:58","value":"30.7","type":"upload"},{"time":"02:12:56","value":"22.1","type":"download"},{"time":"02:12:56","value":"25.3","type":"upload"}],"ports":[9001,9002,9003,9004,9005,9006,9007,9008,9009,9010,9016,9017,9018,9019,9020,9071,9072,9073,9074,9075,9076,9077,9078,9079,9080,9096,9097,9098,9099,9100]
         },
         "comment": "alex",
         "measurementTime": "26-09-2019 08:17:21"

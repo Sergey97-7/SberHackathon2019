@@ -46,6 +46,9 @@ export const fetchDataRedux = async(
                 } else {
                     result = [data.value]
                 }
+            } else if (data.hasOwnProperty("error")) {
+                dispatch(error(true, data.error.slice(0, -6), data.status));
+                return { error: data.error.slice(0, -6) }
             } else {
                 result = data
             }
@@ -53,6 +56,7 @@ export const fetchDataRedux = async(
         } else {
 
             dispatch(error(true, data.error, res.status));
+            return { error: data.error }
         }
         let result;
         if (data.hasOwnProperty("value")) result = data.value

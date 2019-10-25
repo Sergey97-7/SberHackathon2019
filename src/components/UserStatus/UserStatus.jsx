@@ -34,10 +34,10 @@ class UserStatus extends Component {
     let body = {
       email,
       startTime: moment(periodFrom)
-        .utcOffset("GTM -00:00")
+        // .utcOffset("GTM -00:00")
         .format("DD-MM-YYYY HH:mm:ss"),
       endTime: moment(periodTo)
-        .utcOffset("GTM -00:00")
+        // .utcOffset("GTM -00:00")
         .format("DD-MM-YYYY HH:mm:ss")
     };
     if (
@@ -160,7 +160,7 @@ class UserStatus extends Component {
               name="number"
               value={id}
               onChange={this.onChangeReqInput}
-              label="Номер заявки: "
+              label="Номер отчета: "
               type="text"
               icon={
                 <Icon
