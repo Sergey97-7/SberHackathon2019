@@ -1,0 +1,27 @@
+.main {
+    .main-segment {
+        min-height: 400px;
+    }
+    .side-menu-segment,
+    .main-content-segment {
+        height: 100%;
+    }
+}
+
+@media (max-width: 605px) {
+    .segment-custom-media {
+        padding: 10px !important;
+    }
+    #custom-padding {
+        // padding: 10px !important;
+    }
+}
+
+@media (max-width: 380px) {
+    .root-segment {
+        min-width: 285px;
+        padding-right: 16px !important;
+        // width: 96vw;
+        // padding: 0 8px !important;
+    }
+}

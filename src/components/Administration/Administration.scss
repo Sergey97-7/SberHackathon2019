@@ -1,0 +1,68 @@
+.administration {
+    .administration-search {
+        display: flex;
+        justify-content: space-around;
+        .input-search {
+            flex: 3;
+        }
+        .button-add-user {
+            margin-left: 5px;
+        }
+    }
+    .user-filter-not-found {
+        text-align: center;
+    }
+    .last-cell {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.administration-create .administration-create-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.administration-create-btns-container {
+    // display: flex;
+    // justify-content: space-around;
+}
+
+.mobile-btn-back {
+    opacity: 0;
+}
+
+.button-add-user-mobile {
+    display: none !important;
+    opacity: 0;
+    // padding: 0 !important;
+}
+
+.desktop-btn-back {}
+
+@media (max-width: 400px) {
+    .mobile-btn-back {
+        opacity: 1;
+    }
+    .desktop-btn-back {
+        display: none !important;
+        opacity: 0 !important;
+        padding: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+    .administration-create-btns-container {
+        display: flex;
+        justify-content: space-around;
+    }
+    .button-add-user-mobile {
+        opacity: 1;
+        display: block !important;
+    }
+    .button-add-user-desktop {
+        opacity: 0;
+        padding: 0 !important;
+        display: none !important;
+    }
+}

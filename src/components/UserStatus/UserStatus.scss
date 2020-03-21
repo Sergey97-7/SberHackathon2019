@@ -1,0 +1,89 @@
+.status {
+    .label {
+        width: 140px;
+    }
+    .user-status-datepicker-container>div {
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+    .user-status-datepicker-container .user-status-datepicker-to {
+        margin-left: 30px;
+    }
+}
+
+@media (max-width: 605px) {
+    .status .user-status-datepicker-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .user-status-datepicker-to {
+            display: block;
+            margin-left: 0px;
+        }
+    }
+    .user-status-search-btn {
+        display: block !important;
+        margin: 0 auto !important;
+    }
+}
+
+.current-user-status {
+    .label {
+        width: 105px;
+        text-align: left;
+    }
+    .current-user-networks {
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+}
+
+.field-wrap {
+    word-break: break-all;
+}
+
+.status-list {
+    margin: 0 auto !important;
+}
+
+.curent-user-status-row {
+    display: flex;
+    justify-content: space-around;
+    // width: 100%;
+    flex-wrap: wrap;
+    .curent-user-status-column-1 {
+        margin-right: 10px;
+        flex: 1;
+    }
+    .curent-user-status-column-2 {
+        flex: 9;
+    }
+}
+
+@media (max-width: 1000px) {
+    .curent-user-status-row {
+        flex-direction: column;
+        .curent-user-status-column-1 {
+            margin: 10px 0;
+        }
+    }
+}
+
+.curent-user-status-column-1 {
+    // margin-right: 10px;
+    // flex: 1;
+}
+
+.curent-user-status-column-2 {
+    // flex: 9;
+}
+
+.current-user-status-btn-ports-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    // align-items: stretch;
+    div {
+        margin: 10px !important;
+    }
+}
